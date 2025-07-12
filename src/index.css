@@ -112,10 +112,12 @@ body {
   justify-content: center;
   align-items: center;
 }
-.nav-cont {
+.nav-cont-body {
   width: 80%;
   background-color: rgba(247, 247, 247, 0.493);
+  padding-top: 10rem;
   /* padding: 0.5rem; */
+
   padding-bottom: 7.5rem;
   /* border: 1px solid rgb(255, 0, 76); */
 }
@@ -124,6 +126,10 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+
   background-color: #435bc5;
   padding-top: 3rem;
   padding-bottom: 0.5rem;
