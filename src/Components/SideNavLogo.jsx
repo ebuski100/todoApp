@@ -45,11 +45,18 @@ function SideNavLogo() {
           </div>
         </div>
       </div>
+
       <div className="navItem search">
         <img src="/images/search-icon.png" alt="" />
         <div className="searchText">Search</div>
       </div>
+      <div className="addtask navItem">
+        <div className="addtaskImg">
+          <img src="/images/plus-white.png" alt="" height={16} />
+        </div>
 
+        <div className="addTaskText">Add task</div>
+      </div>
       <div className="proSect navItem">
         <img src="/images/crown.png" alt="" />
         <div className="proText">PRO Version</div>
@@ -80,10 +87,10 @@ function SideNavLogo() {
         <img src="/images/feedback-blue.png" alt="" height={40} />
         <div className="feedbackText">Feedback</div>
       </div>
-      <div className="settings navItem">
+      {/* <div className="settings navItem">
         <img src="/images/settings-blue.png" alt="" height={40} />
         <div className="settingsText">Settings</div>
-      </div>
+      </div> */}
       <div className="share navItem">
         <img src="/images/share-blue.png" alt="" height={40} />
         <div className="settingsText">Share App</div>

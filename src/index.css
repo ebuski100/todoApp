@@ -15,13 +15,14 @@ body {
   /* border: 1px solid orange; */
 }
 
+/* footnav */
 .foot-nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   /* border: 1px solid blue; */
   background-color: #fff;
-  width: 100%;
+  /* width: 100%; */
   padding: 1rem 2rem;
   font-weight: bold;
   position: fixed;
@@ -298,6 +299,18 @@ body {
 .proText {
   font-weight: bold;
 }
+
+.addtaskImg {
+  background-color: rgb(74, 74, 255);
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 1.5rem;
+  border-radius: 50%;
+}
 .category,
 .category1st {
   display: flex;
@@ -309,8 +322,12 @@ body {
 .categoryDropdown img {
   height: 1rem;
 }
-.categoryText {
+.categoryText,
+.addTaskText {
   font-weight: bold;
+}
+.addTaskText {
+  color: rgb(58, 58, 252);
 }
 .nav-hr {
   height: 0.5px;

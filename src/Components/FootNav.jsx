@@ -35,8 +35,12 @@ function FootNav() {
         <p className="footer-text">Calendar</p>
       </div>
       <div className="footer-icon">
-        <img className="footerIcon-img" src="/images/user-greyed.png" alt="" />
-        <p className="footer-text">Me</p>
+        <img
+          className="footerIcon-img"
+          src="/images/settings-grey.png"
+          alt=""
+        />
+        <p className="footer-text">Settings</p>
       </div>
     </div>
   );
