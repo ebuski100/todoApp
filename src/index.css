@@ -5,16 +5,22 @@
   font-family: sans-serif;
 }
 body {
-  padding: 1rem;
+  /* padding: 1rem; */
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
 
-  height: auto;
+  height: 100vh;
+  width: 100vw;
   background-color: rgb(253, 253, 253);
   /* border: 1px solid orange; */
 }
 
+.app-container {
+  width: 100%;
+  height: 100%;
+  background-color: lightblue;
+}
 /* footnav */
 .foot-nav {
   display: flex;
@@ -74,7 +80,7 @@ body {
   border-radius: 0.5rem;
   background-color: hsla(0, 0%, 90%, 0.341);
   padding: 0.5rem;
-  width: 7rem;
+  /* width: 7rem; */
   /* height: auto; */
 }
 .load-page-logo-cont {
