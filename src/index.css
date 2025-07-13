@@ -92,7 +92,7 @@ body {
 }
 
 .load-page-logo-cont {
-  margin-bottom: 6rem;
+  margin-bottom: 5rem;
 }
 
 .loadPage-cont {
@@ -131,7 +131,7 @@ body {
 }
 .bar {
   height: 0.8rem;
-  width: 5rem;
+  width: 6rem;
   border-radius: 1rem;
 }
 .green-bar {
@@ -153,7 +153,7 @@ body {
     width: 0;
   }
   100% {
-    width: 7rem;
+    width: 6rem;
   }
 }
 .blue-checkmark {
