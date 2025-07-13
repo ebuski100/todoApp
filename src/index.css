@@ -50,7 +50,7 @@ body {
 }
 
 .footerIcon-img {
-  height: 2rem;
+  height: 1.5rem;
 }
 .footer-task-img-cont {
   background-color: #9eafff;
@@ -60,6 +60,7 @@ body {
 }
 .footer-text {
   margin-top: 0.5rem;
+  font-size: 12px;
 }
 
 @media (min-width: 768px) {
@@ -303,11 +304,12 @@ body {
   /* justify-content: center; */
   /* border: 1px solid blue; */
   align-items: center;
+  padding-left: 0.5rem;
 }
 .proSect:hover {
   background-color: rgba(210, 210, 210, 0.5);
 }
-.proSect img,
+
 .theme img,
 .category img,
 .donate img,
@@ -315,7 +317,11 @@ body {
 .settings img,
 .share img {
   margin-right: 1.5rem;
-  height: 2.5rem;
+  height: 1.5rem;
+}
+.proSect img {
+  margin-right: 1.5rem;
+  height: 2rem;
 }
 .search img {
   margin-right: 1.5rem;
