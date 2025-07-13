@@ -51,7 +51,7 @@ function SideNavLogo() {
           <img src="/images/search-icon.png" alt="" />
           <div className="searchText">Search</div>
         </div>
-        <div className="addtask navItem">
+        <div className=" r78; 977 5vc4acd addtask navItem">
           <div className="addtaskImg">
             <img src="/images/plus-white.png" alt="" height={16} />
           </div>

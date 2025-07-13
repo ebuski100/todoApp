@@ -258,8 +258,8 @@ body {
 }
 .profile-name {
   font-weight: bold;
-  margin-right: 1rem;
-  max-width: 150px;
+  margin-right: 0.5rem;
+  max-width: 120px;
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -275,7 +275,7 @@ body {
   /* border: 1px solid orange; */
 }
 .notification img {
-  height: 2rem;
+  height: 1.5rem;
 }
 .notification-icon,
 .side-bar-icon {
