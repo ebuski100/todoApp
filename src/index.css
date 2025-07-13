@@ -92,8 +92,16 @@ body {
   border-radius: 0.5rem;
   background-color: hsla(0, 0%, 90%, 0.341);
   padding: 1rem;
-  width: 12rem;
+  width: 10rem;
   height: auto;
+  opacity: 0;
+  animation: changeOpaq 0.5s linear forwards;
+}
+
+@keyframes changeOpaq {
+  100% {
+    opacity: 1;
+  }
 }
 .load-page-logo-cont {
   margin-bottom: 6rem;
@@ -164,7 +172,7 @@ body {
   display: flex;
   flex-direction: row;
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 2rem;
   color: #9eafff;
   visibility: hidden;
   animation: showTitle 1s linear 2s forwards;
@@ -181,7 +189,7 @@ body {
 }
 .loadTitle img {
   margin-right: 1.5rem;
-  height: 3rem;
+  height: 2rem;
 }
 .sideNavLogoImg {
   margin-right: 1rem;
