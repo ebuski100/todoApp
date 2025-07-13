@@ -259,6 +259,11 @@ body {
 .profile-name {
   font-weight: bold;
   margin-right: 1rem;
+  max-width: 150px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .edit-btn img {

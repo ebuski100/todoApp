@@ -32,7 +32,7 @@ function SideNavLogo() {
         <div className="side-nav-sub-header">
           <div className="profile">
             <div className="profile-img"></div>
-            <div className="profile-name">userimpressionnlesss</div>
+            <div className="profile-name">user0t09fqiwj09qu09qiwu0</div>
             <div className="edit-btn">
               <img src="/images/down.png" alt="" />
             </div>
@@ -41,9 +41,9 @@ function SideNavLogo() {
             <div className="notification-icon  notification-item">
               <img src="/images/bell-black.png" alt="" />
             </div>
-            <div className="side-bar-icon notification-item">
+            {/* <div className="side-bar-icon notification-item">
               <img src="/images/sidebar-black.png" alt="" />
-            </div>
+            </div> */}
           </div>
         </div>
 
