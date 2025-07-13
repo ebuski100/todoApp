@@ -1,20 +1,20 @@
 // import Category from "./pages/Category";
-import FootNav from "./Components/FootNav";
-import SideNavLogo from "./Components/SideNavLogo";
+// import FootNav from "./Components/FootNav";
+// import SideNavLogo from "./Components/SideNavLogo";
 
-import AddTask from "./Components/AddTask";
+// import AddTask from "./Components/AddTask";
 // import TaskCategory from "./Components/TaskCategory";
 import Tasks from "./pages/Tasks";
 
-// import LoadPage from "./pages/LoadPage";
+import LoadPage from "./pages/LoadPage";
 
 function App() {
   return (
     <div className="app-container">
-      <SideNavLogo />
+      {/* <SideNavLogo /> */}
 
-      <FootNav />
-      {/* <LoadPage /> */}
+      {/* <FootNav /> */}
+      <LoadPage />
 
       {/* <Tasks /> */}
       {/* <TaskCategory /> */}
