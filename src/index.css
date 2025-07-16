@@ -8,7 +8,7 @@ body {
   /* padding: 1rem; */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
 
   height: 100vh;
   /* width: 100vw; */
@@ -381,20 +381,31 @@ body {
 /* TASKCATEGORY STYLES */
 
 .taskCategoryCont {
-  /* border: 1px solid blue; */
-  /* padding: 5rem 2rem 1rem 0.5rem; */
-  padding: 0.5rem;
   display: flex;
-  position: fixed;
-  top: 0.5rem;
+  position: sticky;
+  top: 0;
+  /* width: 100%; */
+  max-width: 100vw;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  overflow-x: scroll;
+  height: 3rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* border: 1px solid blue; */
+}
+
+.taskCategoryCont::-webkit-scrollbar {
+  display: none;
 }
 
 .taskCont {
+  flex: 0 0 auto;
   background-color: #ccd1e9;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   color: rgb(83, 83, 83);
   margin-right: 0.5rem;
+  cursor: pointer;
 }
 
 .taskNavImg {
@@ -402,7 +413,8 @@ body {
   background: #fff;
   padding: 0 0.5rem;
   right: 0;
-  /* border: 1px solid red; */
+  top: 0.5rem;
+  cursor: pointer;
 }
 
 .addTaskCont {
@@ -475,7 +487,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
   /* padding: 5rem 3rem 15rem 3rem; */
   padding-bottom: 14rem;
 }
