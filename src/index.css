@@ -470,12 +470,13 @@ body {
 }
 
 .taskImgCont {
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  height: 100vh;
+  padding: 3rem;
 }
 .taskImgCont img {
   margin-bottom: 1rem;
