@@ -509,10 +509,11 @@ body {
   position: fixed;
   top: 1rem;
   left: 1rem;
+  height: 1rem;
 }
 .themeTitle {
   font-weight: bold;
-  margin-left: 2rem;
+  margin-left: 1rem;
   font-size: 2rem;
 }
 .themeCont {
@@ -522,14 +523,19 @@ body {
   align-content: center;
   height: 100vh;
   padding: 2rem;
-  grid-template-columns: repeat(2, 200px);
-  grid-template-rows: repeat(2, 200px);
+  grid-template-columns: repeat(2, 150px);
+  grid-template-rows: repeat(2, 150px);
   gap: 2rem;
 }
 
 .themeItem {
   border-radius: 1rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #40024d;
+  font-weight: bold;
 }
 .themeItem:hover {
   transform: scale(1.05);
@@ -542,6 +548,7 @@ body {
 }
 .blackTheme {
   background-color: black;
+  color: #fff;
 }
 .greenTheme {
   background-color: #03d9bc;
