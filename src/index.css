@@ -378,15 +378,15 @@ body {
   margin: 0.5rem 0;
 }
 
-/* TaskCategory Styles */
+/* TASKCATEGORY STYLES */
 
 .taskCategoryCont {
   /* border: 1px solid blue; */
+  /* padding: 5rem 2rem 1rem 0.5rem; */
+  padding: 0.5rem;
   display: flex;
-  position: relative;
-  width: 100%;
-  /* padding-right: 6rem; */
-  /* justify-content: space-around; */
+  position: fixed;
+  top: 0.5rem;
 }
 
 .taskCont {
@@ -402,6 +402,7 @@ body {
   background: #fff;
   padding: 0 0.5rem;
   right: 0;
+  /* border: 1px solid red; */
 }
 
 .addTaskCont {
@@ -469,9 +470,12 @@ body {
 }
 
 .taskImgCont {
-  /* border: 1px solid blue; */
+  border: 1px solid blue;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
+}
+.taskImgCont img {
+  height: 128px;
 }

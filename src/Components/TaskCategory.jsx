@@ -11,6 +11,9 @@ function TaskCategory() {
         <div className="taskCont">Chores</div>
         <div className="taskCont">Chores</div>
         <div className="taskCont">Chores</div>
+        <div className="taskCont">Chores</div>
+        <div className="taskCont">Chores</div>
+        <div className="taskCont">Chores</div>
         <div style={{ minWidth: "3rem" }} />
         <div className="taskNavImg">
           <img src="/images/three-dots-grey.png" alt="" height={32} />
