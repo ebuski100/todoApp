@@ -517,17 +517,24 @@ body {
   font-size: 2rem;
 }
 .themeCont {
-  display: grid;
   justify-content: center;
   /* border: 1px solid blue; */
-  align-content: center;
+  align-items: center;
   height: 100vh;
   padding: 2rem;
-  grid-template-columns: repeat(2, 150px);
+  /* grid-template-columns: repeat(2, 150px);
   grid-template-rows: repeat(2, 150px);
-  gap: 2rem;
+  gap: 2rem; */
+  display: flex;
+  flex-direction: column;
 }
-
+.themeContItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 .themeItem {
   border-radius: 1rem;
   cursor: pointer;
@@ -536,6 +543,9 @@ body {
   justify-content: center;
   color: #40024d;
   font-weight: bold;
+  height: 100px;
+  width: 300px;
+  margin-bottom: 0.3rem;
 }
 .themeItem:hover {
   transform: scale(1.05);

@@ -8,16 +8,21 @@ function Theme() {
         <div className="themeTitle">Theme</div>
       </div>
       <div className="themeCont">
-        <div className="blackTheme themeItem">
-          <div className="themeText">Black</div>
+        <div className="themeContItem">
+          <div className="blackTheme themeItem"></div>
+
+          <div className="themeText">Dark</div>
         </div>
-        <div className="purpleTheme themeItem">
+        <div className="themeContItem">
+          <div className="purpleTheme themeItem"></div>
           <div className="themeText">lightpink</div>
         </div>
-        <div className="orangeTheme themeItem">
+        <div className="themeContItem">
+          <div className="orangeTheme themeItem"></div>
           <div className="themeText">Orange </div>
         </div>
-        <div className="greenTheme themeItem">
+        <div className="themeContItem">
+          <div className="greenTheme themeItem"></div>
           <div className="themeText">cyan</div>
         </div>
       </div>
