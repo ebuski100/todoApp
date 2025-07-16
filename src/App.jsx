@@ -14,9 +14,9 @@ function App() {
       {/* <SideNavLogo /> */}
 
       {/* <FootNav /> */}
-      <LoadPage />
+      {/* <LoadPage /> */}
 
-      {/* <Tasks /> */}
+      <Tasks />
       {/* <TaskCategory /> */}
       {/* <AddTask /> */}
     </div>
