@@ -6,7 +6,8 @@
 // import TaskCategory from "./Components/TaskCategory";
 import Tasks from "./pages/Tasks";
 
-import LoadPage from "./pages/LoadPage";
+// import LoadPage from "./pages/LoadPage";
+import Theme from "./pages/Theme";
 
 function App() {
   return (
@@ -15,8 +16,9 @@ function App() {
 
       {/* <FootNav /> */}
       {/* <LoadPage /> */}
+      <Theme />
 
-      <Tasks />
+      {/* <Tasks /> */}
       {/* <TaskCategory /> */}
       {/* <AddTask /> */}
     </div>
