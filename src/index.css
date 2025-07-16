@@ -616,3 +616,8 @@ body {
 .calendarContainer .react-calendar {
   border: none;
 }
+
+.calendarContainer .react-calendar__navigation {
+  width: 300px;
+  max-width: 90%;
+}
