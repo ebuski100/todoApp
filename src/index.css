@@ -414,8 +414,8 @@ body {
   justify-content: center;
   border-radius: 50%;
   position: fixed;
-  bottom: 8rem;
-  right: 2rem;
+  bottom: 7rem;
+  right: 1rem;
   cursor: pointer;
   /* animation: spread 1s linear infinite; */
 }
@@ -476,7 +476,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  padding: 3rem;
+  padding: 5rem 3rem 12rem 3rem;
 }
 .taskImgCont img {
   margin-bottom: 1rem;
