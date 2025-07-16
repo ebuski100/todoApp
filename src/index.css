@@ -505,7 +505,7 @@ body {
   align-items: center;
   justify-content: center;
 }
-.themeBackArrow {
+.BackArrow {
   position: fixed;
   top: 1rem;
   left: 1rem;
@@ -562,4 +562,57 @@ body {
 }
 .greenTheme {
   background-color: #03d9bc;
+}
+
+/* COMPLETED TASK PAGE STYLES */
+
+.completedHeader {
+  /* border: 1px solid blue; */
+
+  padding: 1rem;
+  display: flex;
+  justify-content: end;
+}
+.completedTime {
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: rgb(115, 115, 248);
+}
+
+/* CALENDAR PAGE STYLES */
+.calenderHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+}
+
+.calheadRight {
+  display: flex;
+  flex-direction: row;
+
+  /* border: 1px solid blue; */
+  padding-left: 1rem;
+  align-items: center;
+  width: 80%;
+}
+
+.calHeadText {
+  margin: 0.5rem 1rem;
+}
+
+.calheadleft {
+  padding: 0.5rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+/* .calendarContainer {
+  display: flex;
+  flex-direction: row;
+} */
+.calendarContainer .react-calendar {
+  border: none;
 }

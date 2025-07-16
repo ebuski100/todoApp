@@ -4,6 +4,8 @@
 
 // import AddTask from "./Components/AddTask";
 // import TaskCategory from "./Components/TaskCategory";
+import Calendar from "./pages/Calendar";
+import Completed from "./pages/Completed";
 import Tasks from "./pages/Tasks";
 
 // import LoadPage from "./pages/LoadPage";
@@ -16,10 +18,11 @@ function App() {
 
       {/* <FootNav /> */}
       {/* <LoadPage /> */}
-      <Theme />
-
+      {/* <Theme /> */}
+      {/* <Completed /> */}
       {/* <Tasks /> */}
       {/* <TaskCategory /> */}
+      <Calendar />
       {/* <AddTask /> */}
     </div>
   );

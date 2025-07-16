@@ -1,7 +1,9 @@
 function Goback() {
   return (
     <>
-      <img src="/images/back arrow.png" alt="" />
+      <div className="BackArrow">
+        <img src="/images/back arrow.png" height={32} alt="" />
+      </div>
     </>
   );
 }

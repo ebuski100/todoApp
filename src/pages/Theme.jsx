@@ -1,10 +1,13 @@
+import Goback from "./Goback";
+
 function Theme() {
   return (
     <>
       <div className="themeHeader">
-        <div className="themeBackArrow">
+        {/* <div className="themeBackArrow">
           <img src="/images/back arrow.png" height={32} alt="" />
-        </div>
+        </div> */}
+        <Goback />
         <div className="themeTitle">Theme</div>
       </div>
       <div className="themeCont">
