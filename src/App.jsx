@@ -4,9 +4,11 @@
 
 // import AddTask from "./Components/AddTask";
 // import TaskCategory from "./Components/TaskCategory";
+import CompletedLink from "./Components/CompletedLink";
 import Calendar from "./pages/Calendar";
 import Completed from "./pages/Completed";
 import Tasks from "./pages/Tasks";
+import TaskTemplates from "./pages/TaskTemplates";
 
 // import LoadPage from "./pages/LoadPage";
 import Theme from "./pages/Theme";
@@ -22,8 +24,10 @@ function App() {
       {/* <Completed /> */}
       {/* <Tasks /> */}
       {/* <TaskCategory /> */}
-      <Calendar />
+      {/* <Calendar /> */}
       {/* <AddTask /> */}
+      {/* <CompletedLink /> */}
+      <TaskTemplates />
     </div>
   );
 }
