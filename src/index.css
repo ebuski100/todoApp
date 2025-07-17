@@ -581,43 +581,34 @@ body {
 }
 
 /* CALENDAR PAGE STYLES */
-.calenderHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
+.calendarContainer {
+  background-size: 50%;
+  background-image: url("/images/coffee-lightblue.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-color: rgba(127, 127, 243, 0.301); */
 }
-
-.calheadRight {
-  display: flex;
-  flex-direction: row;
-
-  /* border: 1px solid blue; */
-  padding-left: 1rem;
-  align-items: center;
-  width: 80%;
-}
-
-.calHeadText {
-  margin: 0.5rem 1rem;
-}
-
 .calheadleft {
   padding: 0.5rem;
   position: fixed;
   top: 0;
   right: 0;
 }
-/* .calendarContainer {
-  display: flex;
-  flex-direction: row;
-} */
+
 .calendarContainer .react-calendar {
   border: none;
+  background: transparent;
 }
 
 .calendarContainer .react-calendar__navigation {
   width: 300px;
   max-width: 90%;
+}
+
+.calNotaskText {
+  height: 200px;
+  display: flex;
+  color: grey;
+  justify-content: center;
+  align-items: center;
 }
