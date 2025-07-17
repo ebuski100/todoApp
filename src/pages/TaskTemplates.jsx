@@ -5,7 +5,7 @@ function TaskTemplates() {
     <div className="taskTemplate-cont">
       <div className="templateHeader">
         <Goback />
-        <h2>Task Templates</h2>
+        <div>Task Templates</div>
       </div>
       <div className="templateSect health">
         <div className="healthHeader templateSectHeader">Health</div>
@@ -20,7 +20,7 @@ function TaskTemplates() {
           </div>
           <img src="images/forward arrow.png" alt="" height={16} />
         </div>
-        <div className="healthItem templateItem drinkwater">
+        <div className="healthItem templateItem sleepEarly">
           <div className="template1">
             <img src="/images/moon.png" alt="" height={32} />
             <div>Go to bed early</div>

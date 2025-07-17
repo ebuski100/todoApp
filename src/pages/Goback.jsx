@@ -2,7 +2,7 @@ function Goback() {
   return (
     <>
       <div className="BackArrow">
-        <img src="/images/back arrow.png" height={32} alt="" />
+        <img src="/images/back arrow.png" height={24} alt="" />
       </div>
     </>
   );
