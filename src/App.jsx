@@ -9,6 +9,7 @@ import Calendar from "./pages/Calendar";
 import Completed from "./pages/Completed";
 import Tasks from "./pages/Tasks";
 import TaskTemplates from "./pages/TaskTemplates";
+import Donate from "./pages/Donate";
 
 // import LoadPage from "./pages/LoadPage";
 import Theme from "./pages/Theme";
@@ -27,7 +28,8 @@ function App() {
       {/* <Calendar /> */}
       {/* <AddTask /> */}
       {/* <CompletedLink /> */}
-      <TaskTemplates />
+      {/* <TaskTemplates /> */}
+      <Donate />
     </div>
   );
 }
