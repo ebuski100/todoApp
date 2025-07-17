@@ -7,14 +7,40 @@ function Calendar() {
   return (
     <>
       <div className="calheadleft">
-        <img src="/images/three-dots-grey.png" alt="" height={30} />
+        <img src="/images/three-dots-black.png" alt="" height={25} />
       </div>
       <div className="calendarContainer">
         <CalendarLib />
       </div>
-      <div className="calNotaskText">
-        No task for the day. <br />
-        Click "+" to create your tasks.
+      <div className="calTasksCont">
+        <div className="calNotaskText">
+          No task for the day. <br />
+          Click "+" to create your tasks.
+        </div>
+        <div className="calNotaskText">
+          No task for the day. <br />
+          Click "+" to create your tasks.
+        </div>
+        <div className="calNotaskText">
+          No task for the day. <br />
+          Click "+" to create your tasks.
+        </div>
+        <div className="calNotaskText">
+          No task for the day. <br />
+          Click "+" to create your tasks.
+        </div>
+        <div className="calNotaskText">
+          No task for the day. <br />
+          Click "+" to create your tasks.
+        </div>
+        <div className="calNotaskText">
+          No task for the day. <br />
+          Click "+" to create your tasks.
+        </div>
+        <div className="calNotaskText">
+          No task for the day. <br />
+          Click "+" to create your tasks.
+        </div>
       </div>
       <AddTask />
       <FootNav />

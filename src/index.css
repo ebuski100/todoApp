@@ -587,7 +587,9 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   margin-bottom: 1rem;
-  /* background-color: rgba(127, 127, 243, 0.301); */
+  position: sticky;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.95);
 }
 .calheadleft {
   padding: 0.5rem;
@@ -630,5 +632,10 @@ body {
   color: grey;
   justify-content: center;
   align-items: center;
+
   border: 1px solid blue;
+}
+
+.calTasksCont {
+  padding-bottom: 7rem;
 }
