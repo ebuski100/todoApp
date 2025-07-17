@@ -586,6 +586,7 @@ body {
   background-image: url("/images/coffee-lightblue.png");
   background-position: center;
   background-repeat: no-repeat;
+  margin-bottom: 1rem;
   /* background-color: rgba(127, 127, 243, 0.301); */
 }
 .calheadleft {
@@ -605,10 +606,24 @@ body {
   max-width: 90%;
 }
 
+.calendarContainer .react-calendar__tile--now {
+  background: #435bc5 !important;
+  color: #fff !important;
+  border-radius: 0.5rem;
+}
+.calendarContainer .react-calendar__navigation__label {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.calendarContainer .react-calendar__navigation__arrow {
+  font-weight: bold !important;
+  font-size: 1.5rem;
+}
 .calNotaskText {
   height: 200px;
   display: flex;
   color: grey;
   justify-content: center;
   align-items: center;
+  border: 1px solid blue;
 }
