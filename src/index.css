@@ -616,7 +616,8 @@ body {
 }
 .calendarContainer .react-calendar__navigation__label {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  color: #394fb1 !important;
 }
 .calendarContainer .react-calendar abbr {
   text-decoration: none;
