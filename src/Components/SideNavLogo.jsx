@@ -69,7 +69,7 @@ function SideNavLogo() {
             <img
               src="/images/plus-white.png"
               alt=""
-              className="h-6"
+              className="h-4"
             />
           </div>
 
