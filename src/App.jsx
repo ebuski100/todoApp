@@ -6,7 +6,7 @@ import SideNavLogo from "./Components/SideNavLogo";
 // import TaskCategory from "./Components/TaskCategory";
 // import CompletedLink from "./Components/CompletedLink";
 // import Calendar from "./pages/Calendar";
-// import Completed from "./pages/Completed";
+import Completed from "./pages/Completed";
 // import Tasks from "./pages/Tasks";
 // import TaskTemplates from "./pages/TaskTemplates";
 // import Donate from "./pages/Donate";
@@ -17,12 +17,12 @@ import SideNavLogo from "./Components/SideNavLogo";
 function App() {
   return (
     <div className="app-container">
-      <SideNavLogo />
+      {/* <SideNavLogo /> */}
 
       {/* <FootNav /> */}
       {/* <LoadPage /> */}
       {/* <Theme /> */}
-      {/* <Completed /> */}
+      <Completed />
       {/* <Tasks /> */}
       {/* <TaskCategory /> */}
       {/* <Calendar /> */}
