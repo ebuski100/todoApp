@@ -10,6 +10,7 @@ import CompletedLink from "./Components/CompletedLink";
 // import Calendar from "./pages/Calendar";
 import Completed from "./pages/Completed";
 import Tasks from "./pages/Tasks";
+import ManageCategories from "./pages/ManageCategories";
 
 // import TaskTemplates from "./pages/TaskTemplates";
 // import Donate from "./pages/Donate";
@@ -38,6 +39,7 @@ function App() {
         <Route path="/completed" element={<Completed />} />
         <Route path="/d" element={<CompletedLink />} />
         <Route path="/" element={<Tasks />} />
+        <Route path="/ManageCategories" element={<ManageCategories />} />
       </Routes>
     </div>
   );

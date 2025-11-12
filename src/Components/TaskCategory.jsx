@@ -1,8 +1,14 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function TaskCategory() {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
+  const navigate = useNavigate();
+  function goManageCategory() {
+    navigate("/ManageCategories");
+    console.log("category page opened");
+  }
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -42,22 +48,26 @@ function TaskCategory() {
 
         <div style={{ minWidth: "3rem" }} />
       </div>
-      <div ref={menuRef} onClick={() => setOpen(!open)} className="taskNavImg">
-        <img src="/images/three-dots-grey.png" alt="" className="h-10" />
-      </div>
-
-      {open && (
-        <div className="absolute   right-4 mt-2 w-auto bg-white border  border-gray-200 rounded-lg shadow-lg z-10">
-          <ul className="py-1">
-            <li>
-              <button className="dropDownIcon ">Manage Categories</button>
-            </li>
-            <li>
-              <button className="dropDownIcon ">Upgrade to PRO</button>
-            </li>
-          </ul>
+      <div ref={menuRef}>
+        <div onClick={() => setOpen(!open)} className="taskNavImg">
+          <img src="/images/three-dots-grey.png" alt="" className="h-10" />
         </div>
-      )}
+
+        {open && (
+          <div className="absolute top-14   right-4  w-auto bg-white border  border-gray-200 rounded-lg shadow-lg z-10 ">
+            <ul className="py-1">
+              <li>
+                <button onClick={goManageCategory} className="dropDownIcon ">
+                  Manage Categories
+                </button>
+              </li>
+              <li>
+                <button className="dropDownIcon ">Upgrade to PRO</button>
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
     </>
   );
 }

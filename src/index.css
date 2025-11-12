@@ -790,7 +790,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  top: 300px;
+  top: 200px;
   background: #f0f0f0;
   /* border: 1px solid blue; */
   /* background: #00000077; */
@@ -846,3 +846,94 @@ body {
   position: relative;
   align-items: center;
 }
+
+.manageCatHeader {
+  padding: 1rem;
+}
+.secondHeader {
+  padding: 0.7rem;
+  background: rgb(198, 198, 255);
+}
+.createCategory {
+  padding: 0.5rem 0;
+}
+.plusIcon {
+  margin-right: 0.5rem;
+  font-size: 2rem;
+}
+.categoriesCont {
+  padding: 1rem;
+  /* border: 1px solid blue; */
+  margin-top: 0.5rem;
+}
+
+.reorderInfo {
+  color: grey;
+  /* border: 1px solid blue; */
+  padding: 0.5rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modalContent {
+  width: 100%;
+}
+.catForm {
+  margin: 2rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: #fff;
+
+  min-height: 200px;
+}
+
+.formHeader {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.catInput {
+  background: rgba(238, 238, 238, 0.445);
+  padding: 1rem 0.5rem;
+  border-radius: 1rem;
+  width: 100%;
+  min-height: 100px;
+}
+.catInput:focus {
+  outline: none;
+  border: none;
+}
+.catBtns {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+.catBtnCancel {
+  color: rgba(182, 182, 243, 0.459);
+}
+.catBtnSave {
+  color: rgb(161, 161, 255);
+}
+
+.catListItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+.catItemCont {
+  width: 100%;
+  /* border: 1px solid blue; */
+}
+.catItemName {
+  width: 90%;
+}
+/* ANIMATIONS */
