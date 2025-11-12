@@ -1,13 +1,16 @@
+import { Routes, Route } from "react-router-dom";
+
 // import Category from "./pages/Category";
 // import FootNav from "./Components/FootNav";
-import SideNavLogo from "./Components/SideNavLogo";
+// import SideNavLogo from "./Components/SideNavLogo";
 
 // import AddTask from "./Components/AddTask";
 // import TaskCategory from "./Components/TaskCategory";
-// import CompletedLink from "./Components/CompletedLink";
+import CompletedLink from "./Components/CompletedLink";
 // import Calendar from "./pages/Calendar";
 import Completed from "./pages/Completed";
-// import Tasks from "./pages/Tasks";
+import Tasks from "./pages/Tasks";
+
 // import TaskTemplates from "./pages/TaskTemplates";
 // import Donate from "./pages/Donate";
 
@@ -22,7 +25,7 @@ function App() {
       {/* <FootNav /> */}
       {/* <LoadPage /> */}
       {/* <Theme /> */}
-      <Completed />
+      {/* <Completed /> */}
       {/* <Tasks /> */}
       {/* <TaskCategory /> */}
       {/* <Calendar /> */}
@@ -30,6 +33,12 @@ function App() {
       {/* <CompletedLink /> */}
       {/* <TaskTemplates /> */}
       {/* <Donate /> */}
+
+      <Routes>
+        <Route path="/completed" element={<Completed />} />
+        <Route path="/d" element={<CompletedLink />} />
+        <Route path="/" element={<Tasks />} />
+      </Routes>
     </div>
   );
 }

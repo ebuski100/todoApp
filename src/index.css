@@ -376,7 +376,6 @@ body {
 }
 .addTaskText {
   color: rgb(58, 58, 252);
-
 }
 .nav-hr {
   height: 0.5px;
@@ -398,7 +397,8 @@ body {
   height: 3rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  /* border: 1px solid blue; */
+  margin-bottom: 1rem;
+  /* border: 5px solid blue; */
 }
 
 .taskCategoryCont::-webkit-scrollbar {
@@ -418,10 +418,12 @@ body {
 .taskNavImg {
   position: fixed;
   background: #fff;
-  padding: 0 0.5rem;
-  right: 0;
-  top: 0.5rem;
+
+  padding: 0.5rem;
+  right: -5px;
+  top: 0;
   cursor: pointer;
+  /* border: 1px solid blue; */
 }
 
 .addTaskCont {
@@ -772,4 +774,74 @@ body {
   width: 300px;
   margin: 2rem auto 0 auto;
   cursor: pointer;
+}
+/* Task Page */
+.dropDownIcon {
+  padding: 0.6rem 1rem;
+}
+
+.taskInput {
+  /* background-color: rgb(207, 207, 207); */
+  width: 100%;
+  height: 150px;
+  padding: 1rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  top: 50%;
+  background: #f0f0f0;
+  /* border: 1px solid blue; */
+  /* background: #00000077; */
+}
+
+.inputOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: hsla(0, 0%, 0%, 0.856);
+}
+
+.taskInputBox {
+  background-color: rgba(216, 216, 216, 0.747);
+  padding: 1rem;
+  border-radius: 0.8rem;
+  caret-color: blue;
+  border: none;
+  outline: none;
+}
+.taskInputBox:focus {
+  border: none;
+  outline: none;
+}
+
+.inputTaskBtns {
+  padding: 0.5rem;
+}
+.inputCategory {
+  background: rgb(207, 207, 207);
+  padding: 0.5rem 2rem;
+  border-radius: 1rem;
+  color: #3a4eff;
+  cursor: pointer;
+}
+.inputCalendar {
+  height: 2rem;
+}
+.taskSubmitBtn {
+  background-color: rgb(170, 170, 170);
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tasksCont {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
 }
