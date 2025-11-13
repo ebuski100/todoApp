@@ -15,26 +15,15 @@ function SideNavLogo() {
         </div>
         <div className="side-nav-logo-cont">
           <div className="side-nav-logo-item">
-            <img
-              src="/images/check-mark-in-a-circle-blue.png"
-              alt=""
-            />
+            <img src="/images/check-mark-in-a-circle-blue.png" alt="" />
             <div className="bar blue-bar "></div>
           </div>
           <div className="side-nav-logo-item">
-            <img
-              className="logo-dot"
-              src="/images/purple-dot.png"
-              alt=""
-            />
+            <img className="logo-dot" src="/images/purple-dot.png" alt="" />
             <div className="bar purple-bar "></div>
           </div>
           <div className="side-nav-logo-item">
-            <img
-              className="logo-dot"
-              src="/images/green-dot.png"
-              alt=""
-            />
+            <img className="logo-dot" src="/images/green-dot.png" alt="" />
             <div className="bar green-bar "></div>
           </div>
         </div>
@@ -43,9 +32,7 @@ function SideNavLogo() {
         <div className="side-nav-sub-header">
           <div className="profile">
             <div className="profile-img"></div>
-            <div className="profile-name">
-              user0t09fqiwj09qu09qiwu0
-            </div>
+            <div className="profile-name">user0t09fqiwj09qu09qiwu0</div>
             <div className="edit-btn">
               <img src="/images/down.png" alt="" />
             </div>
@@ -54,9 +41,6 @@ function SideNavLogo() {
             <div className="notification-icon  notification-item">
               <img src="/images/bell-black.png" alt="" />
             </div>
-            {/* <div className="side-bar-icon notification-item">
-              <img src="/images/sidebar-black.png" alt="" />
-            </div> */}
           </div>
         </div>
 
@@ -66,11 +50,7 @@ function SideNavLogo() {
         </div>
         <div className=" r78; 977 5vc4acd addtask navItem">
           <div className="addtaskImg">
-            <img
-              src="/images/plus-white.png"
-              alt=""
-              className="h-4"
-            />
+            <img src="/images/plus-white.png" alt="" className="h-4" />
           </div>
 
           <div className="addTaskText">Add task</div>

@@ -209,9 +209,6 @@ body {
 }
 .navContainer {
   width: 80%;
-  position: relative;
-  height: auto;
-  /* border: 2px solid green; */
 }
 
 .nav-header {
@@ -408,11 +405,16 @@ body {
 .taskCont {
   flex: 0 0 auto;
   background-color: #ccd1e9;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 1rem;
   border-radius: 1rem;
   color: rgb(83, 83, 83);
   margin-right: 0.5rem;
   cursor: pointer;
+}
+
+.taskCont.active {
+  background-color: #537ec4;
+  color: white;
 }
 
 .taskNavImg {
@@ -900,12 +902,14 @@ body {
   justify-content: center;
   z-index: 1000;
 }
+
 .modalContent {
   width: 100%;
 }
 .modalOverlay {
   background: rgba(0, 0, 0, 0.5);
 }
+
 .catForm {
   margin: 2rem;
   padding: 1rem;
@@ -930,14 +934,22 @@ body {
   outline: none;
   border: none;
 }
-.catBtns {
+.deleteBtns {
+  width: 100%;
+  margin-top: 1rem;
+  text-align: right;
+}
+.catBtns,
+.delBtns {
   font-weight: bold;
   margin-right: 1rem;
 }
-.catBtnCancel {
-  color: rgba(182, 182, 243, 0.459);
+.catBtnCancel,
+.CancelDel {
+  color: rgba(182, 182, 243, 0.753);
 }
-.catBtnSave {
+.catBtnSave,
+.goDel {
   color: rgb(161, 161, 255);
 }
 

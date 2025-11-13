@@ -9,6 +9,24 @@ const ManageCategories = () => {
     { id: 3, name: "Birthday", number: 0 },
   ];
 
+  const [categoryToDelete, setCategoryToDelete] = useState(null);
+
+  const [editingCategory, setEditingCategory] = useState(null);
+  const [editedCategoryName, setEditedCategoryName] = useState("");
+  const [showEditCatModal, setShowEditCatModal] = useState(false);
+
+  const [categories, setCategories] = useState(() => {
+    const stored = localStorage.getItem("categories");
+    return stored ? JSON.parse(stored) : initialCategories;
+  });
+
+  const [newCategory, setNewCategory] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const [activeMenuId, setActiveMenuId] = useState(null);
+  const menuRef = useRef(null);
+  const deleteModalRef = useRef(null);
+
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
 
@@ -19,13 +37,42 @@ const ManageCategories = () => {
     setCategories(items);
   };
 
-  const [categories, setCategories] = useState(initialCategories);
+  const handleSaveEdit = (e) => {
+    e.preventDefault();
+    if (!editedCategoryName.trim()) return;
 
-  const [newCategory, setNewCategory] = useState("");
-  const [showModal, setShowModal] = useState(false);
+    setCategories((prev) =>
+      prev.map((cat) =>
+        cat.id === editingCategory.id
+          ? { ...cat, name: editedCategoryName.trim() }
+          : cat
+      )
+    );
+    setShowEditCatModal(false);
+    setEditingCategory(null);
+  };
 
-  const [activeMenuId, setActiveMenuId] = useState(null);
-  const menuRef = useRef(null);
+  useEffect(() => {
+    localStorage.setItem("categories", JSON.stringify(categories));
+  }, [categories]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        deleteModalRef.current &&
+        !deleteModalRef.current.contains(event.target)
+      ) {
+        setCategoryToDelete(null);
+      }
+    };
+
+    // Only listen when modal is open
+    if (categoryToDelete !== null) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [categoryToDelete]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -117,10 +164,23 @@ const ManageCategories = () => {
                               className=" editCont absolute top-14   right-4  w-auto bg-white border  border-gray-200 rounded-lg shadow-lg z-10 "
                             >
                               <ul>
-                                <li className="editDropdown">Edit</li>
+                                <li
+                                  onClick={() => {
+                                    setEditingCategory(category);
+                                    setEditedCategoryName("");
+                                    setShowEditCatModal(true);
+                                    setActiveMenuId(null);
+                                  }}
+                                  className="editDropdown"
+                                >
+                                  Edit
+                                </li>
 
                                 <li
-                                  onClick={() => deleteCategory(category.id)}
+                                  onClick={() => {
+                                    setCategoryToDelete(category.id);
+                                    setActiveMenuId(null);
+                                  }}
                                   className="editDropdown"
                                 >
                                   Delete
@@ -183,14 +243,78 @@ const ManageCategories = () => {
         </div>
       )}
 
-      <div className="deleteCatModalOverlay flex items-center justify-center fixed top-0 right-0 left-0 bottom-0 bg-blue-200">
-        <div className="delCatModalCont flex flex-col w-[80%]  rounded-2xl  bg-white justify-center items-start p-6">
-          <div className="delCatHeader">Delete the Category ?</div>
-          <p className="text-blue-500">
-            All tasks in this category will be deleted
-          </p>
+      {showEditCatModal && (
+        <div
+          className="modalOverlay"
+          onClick={() => setShowEditCatModal(false)}
+        >
+          <div className="modalContent" onClick={(e) => e.stopPropagation()}>
+            <form onSubmit={handleSaveEdit} className="catForm">
+              <div className="formHeader">Edit Category Name</div>
+              <textarea
+                type="text"
+                placeholder={
+                  editingCategory
+                    ? editingCategory.name
+                    : "edit category name ..."
+                }
+                onChange={(e) => setEditedCategoryName(e.target.value)}
+                value={editedCategoryName}
+                className="catInput"
+                autoFocus
+              />
+              <div className=" flex justify-end categoryBtns">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowEditCatModal(false);
+                    setEditingCategory(null);
+                  }}
+                  className="catBtns catBtnCancel"
+                >
+                  CANCEL
+                </button>
+                <button type="submit" className="catBtns catBtnSave">
+                  SAVE
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      )}
+
+      {categoryToDelete && (
+        <div className="deleteCatModalOverlay flex items-center justify-center fixed top-0 right-0 left-0 bottom-0 bg-black/60">
+          <div
+            ref={deleteModalRef}
+            className="delCatModalCont flex flex-col w-[80%]  rounded-2xl  bg-white justify-center items-start p-6"
+          >
+            <div className="delCatHeader font-bold mb-2">
+              Delete the Category ?
+            </div>
+            <p className="text-gray-500">
+              All tasks in this category will be deleted
+            </p>
+            <div className="deleteBtns">
+              <button
+                onClick={() => setCategoryToDelete(null)}
+                className="delBtns CancelDel cursor-pointer"
+              >
+                CANCEL
+              </button>
+              <button
+                onClick={() => {
+                  deleteCategory(categoryToDelete);
+                  setCategoryToDelete(null);
+                }}
+                className="delBtns goDel cursor-pointer"
+              >
+                DELETE
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

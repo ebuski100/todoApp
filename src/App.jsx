@@ -11,6 +11,7 @@ import CompletedLink from "./Components/CompletedLink";
 import Completed from "./pages/Completed";
 import Tasks from "./pages/Tasks";
 import ManageCategories from "./pages/ManageCategories";
+// import SideNavLogo from "./Components/SideNavLogo";
 
 // import TaskTemplates from "./pages/TaskTemplates";
 // import Donate from "./pages/Donate";
@@ -40,6 +41,7 @@ function App() {
         <Route path="/d" element={<CompletedLink />} />
         <Route path="/" element={<Tasks />} />
         <Route path="/ManageCategories" element={<ManageCategories />} />
+        {/* <Route path="/SideNavLogo" element={<SideNavLogo />} /> */}
       </Routes>
     </div>
   );
