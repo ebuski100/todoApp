@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 * {
-  margin: 0;
-  padding: 0;
+  /* margin: 0;
+  padding: 0; */
   box-sizing: border-box;
   font-family: sans-serif;
 }
@@ -523,6 +523,7 @@ body {
   height: 1rem;
   cursor: pointer;
 }
+
 .themeTitle {
   font-weight: bold;
   margin-left: 1rem;
@@ -849,6 +850,18 @@ body {
 
 .manageCatHeader {
   padding: 1rem;
+
+  background: #fffefe;
+}
+.manCatHeaders {
+  position: sticky;
+  top: 0;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+.manArrow {
+  position: absolute;
+  left: 10px;
 }
 .secondHeader {
   padding: 0.7rem;
@@ -874,13 +887,14 @@ body {
   margin-top: 2rem;
   text-align: center;
 }
-.modalOverlay {
+.modalOverlay,
+.editModalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -888,6 +902,9 @@ body {
 }
 .modalContent {
   width: 100%;
+}
+.modalOverlay {
+  background: rgba(0, 0, 0, 0.5);
 }
 .catForm {
   margin: 2rem;
@@ -936,4 +953,14 @@ body {
 .catItemName {
   width: 90%;
 }
+.editCont {
+  padding: 0.5rem;
+
+  box-shadow: 0px 4px 15px rgba(184, 184, 184, 0.863);
+}
+.editDropdown {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
 /* ANIMATIONS */
