@@ -57,16 +57,16 @@ body {
 .footerIcon-img {
   height: 1.5rem;
 }
-.footer-task-img-cont {
+/* .footer-task-img-cont {
   background-color: #9eafff;
   padding: 0 0.2rem;
   border-radius: 0.5rem;
   display: flex;
-}
-.footer-text {
+} */
+/* .footer-text {
   margin-top: 0.5rem;
   font-size: 12px;
-}
+} */
 
 @media (min-width: 768px) {
   .footerIcon-img {

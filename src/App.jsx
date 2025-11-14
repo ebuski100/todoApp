@@ -7,10 +7,12 @@ import { Routes, Route } from "react-router-dom";
 // import AddTask from "./Components/AddTask";
 // import TaskCategory from "./Components/TaskCategory";
 import CompletedLink from "./Components/CompletedLink";
-// import Calendar from "./pages/Calendar";
+import Calendar from "./pages/Calendar";
 import Completed from "./pages/Completed";
 import Tasks from "./pages/Tasks";
 import ManageCategories from "./pages/ManageCategories";
+
+import Settings from "./pages/Settings";
 // import SideNavLogo from "./Components/SideNavLogo";
 
 // import TaskTemplates from "./pages/TaskTemplates";
@@ -41,7 +43,9 @@ function App() {
         <Route path="/d" element={<CompletedLink />} />
         <Route path="/" element={<Tasks />} />
         <Route path="/ManageCategories" element={<ManageCategories />} />
-        {/* <Route path="/SideNavLogo" element={<SideNavLogo />} /> */}
+        <Route path="/Calendar" element={<Calendar />} />
+        <Route path="/Tasks" element={<Tasks />} />
+        <Route path="/Settings" element={<Settings />} />
       </Routes>
     </div>
   );

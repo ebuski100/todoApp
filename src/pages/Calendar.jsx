@@ -7,11 +7,7 @@ function Calendar() {
   return (
     <>
       <div className="calheadleft">
-        <img
-          src="/images/three-dots-black.png"
-          alt=""
-          className="h-6"
-        />
+        <img src="/images/three-dots-black.png" alt="" className="h-6" />
       </div>
       <div className="calendarContainer">
         <CalendarLib />
