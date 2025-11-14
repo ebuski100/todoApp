@@ -13,6 +13,7 @@ import Tasks from "./pages/Tasks";
 import ManageCategories from "./pages/ManageCategories";
 
 import Settings from "./pages/Settings";
+import Faq from "./pages/Faq";
 // import SideNavLogo from "./Components/SideNavLogo";
 
 // import TaskTemplates from "./pages/TaskTemplates";
@@ -46,6 +47,7 @@ function App() {
         <Route path="/Calendar" element={<Calendar />} />
         <Route path="/Tasks" element={<Tasks />} />
         <Route path="/Settings" element={<Settings />} />
+        <Route path="/Faq" element={<Faq />} />
       </Routes>
     </div>
   );
