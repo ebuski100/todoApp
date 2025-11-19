@@ -18,7 +18,7 @@ import SoundSetting from "./pages/SoundSetting";
 // import SideNavLogo from "./Components/SideNavLogo";
 
 // import TaskTemplates from "./pages/TaskTemplates";
-// import Donate from "./pages/Donate";
+import Donate from "./pages/Donate";
 
 // import LoadPage from "./pages/LoadPage";
 // import Theme from "./pages/Theme";
@@ -50,6 +50,7 @@ function App() {
         <Route path="/Settings" element={<Settings />} />
         <Route path="/Faq" element={<Faq />} />
         <Route path="/SoundSetting" element={<SoundSetting />} />
+        <Route path="/Donate" element={<Donate />} />
       </Routes>
     </div>
   );

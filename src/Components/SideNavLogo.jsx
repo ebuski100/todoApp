@@ -1,4 +1,11 @@
+import { useNavigate } from "react-router-dom";
+
 function SideNavLogo() {
+  const navigate = useNavigate();
+
+  const goDonate = () => {
+    navigate("/Donate");
+  };
   return (
     <div className="navContainer">
       <div className="nav-header-cont">
@@ -77,7 +84,7 @@ function SideNavLogo() {
           <img src="/images/theme-blue.png" alt="" />
           <div className="themeText">Theme</div>
         </div>
-        <div className="donate navItem">
+        <div onClick={goDonate} className="donate navItem">
           <img src="/images/blue-donate-icon.png" alt="" />
           <div className="themeText">Donate</div>
         </div>
