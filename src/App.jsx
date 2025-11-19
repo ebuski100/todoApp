@@ -11,9 +11,10 @@ import Calendar from "./pages/Calendar";
 import Completed from "./pages/Completed";
 import Tasks from "./pages/Tasks";
 import ManageCategories from "./pages/ManageCategories";
-
+import "./i18";
 import Settings from "./pages/Settings";
 import Faq from "./pages/Faq";
+import SoundSetting from "./pages/SoundSetting";
 // import SideNavLogo from "./Components/SideNavLogo";
 
 // import TaskTemplates from "./pages/TaskTemplates";
@@ -48,6 +49,7 @@ function App() {
         <Route path="/Tasks" element={<Tasks />} />
         <Route path="/Settings" element={<Settings />} />
         <Route path="/Faq" element={<Faq />} />
+        <Route path="/SoundSetting" element={<SoundSetting />} />
       </Routes>
     </div>
   );

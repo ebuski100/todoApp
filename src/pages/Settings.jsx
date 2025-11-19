@@ -1,32 +1,88 @@
 import FootNav from "../Components/FootNav";
 import { useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "../Components/LanguageSelector";
+import SettingsModals from "../Components/SettingsModals";
 function Settings() {
+  const [showLangModal, setShowLangModal] = useState(false);
+
+  const [showTformatModal, setTformatModal] = useState(false);
+
+  const [showDformatModal, setDformatModal] = useState(false);
+
+  const [showReminderModal, setShowReminderModal] = useState(false);
+  const langModalRef = useRef(null);
+
   const navigate = useNavigate();
+
+  const today = new Date();
+  const day = String(today.getDate()).padStart(2, 0);
+  const month = String(today.getMonth() + 1).padStart(2, 0);
+  const year = today.getFullYear();
+  const date1 = `${day}/${month}/${year}`;
+  const date2 = `${month}/${day}/${year}`;
+  const date3 = `${year}/${month}/${day}`;
+  const [selectedLang, setSelectedLang] = useState(
+    localStorage.getItem("language") || "system"
+  );
+  useEffect(() => {
+    if (showLangModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showLangModal]);
+  const { t, i18n } = useTranslation();
 
   const goFaq = () => {
     navigate("/Faq");
   };
+
+  const goNotification = () => {
+    navigate("/SoundSetting");
+  };
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("language", lang);
+  };
+  const [selectedTimeFormat, setSelectedTimeFormat] = useState(
+    localStorage.getItem("timeFormat") || "System default"
+  );
+
+  const [selectedDateFormat, setSelectedDateFormat] = useState(
+    localStorage.getItem("dateFormat") || date1
+  );
+  const [selectedReminderFormat, setSelectedReminderFormat] = useState(
+    localStorage.getItem("dateFormat") || "5 minutes before"
+  );
   return (
     <>
-      <div className="settingsCont pb-24">
+      <div className="settingsCont pb-25">
         <div className=" z-40 bg-white  sticky top-0 left-0 flex p-4 font-bold ">
           Settings
         </div>
         <div className="p-2 border-b border-gray-300 settingSect ">
-          <div className="p-3 text-gray-700">Customize</div>
+          <div className="p-3 text-gray-700">{t("Customize")}</div>
 
           <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-5">
             <img className="h-8 mr-4" src="/images/user-blue.png" alt="" />
-            <div className="text ">Account</div>
+            <div className="text ">{t("Account")}</div>
           </div>
 
           <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4">
             <img className="h-8 mr-4" src="/images/theme-blue.png" alt="" />
-            <div className="text ">Theme</div>
+            <div className="text ">{t("Theme")}</div>
           </div>
           <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4">
             <img className="h-8 mr-4" src="/images/blue bell.png" alt="" />
-            <div className="text ">Notification & Reminder</div>
+            <div onClick={goNotification} className="text ">
+              {t("Notification & Reminder")}
+            </div>
           </div>
           <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4">
             <img className="h-8 mr-4" src="/images/crown.png" alt="" />
@@ -36,16 +92,25 @@ function Settings() {
         <div className="p-2 border-b border-gray-300 settingSect ">
           <div className="p-3 text-gray-700">Date & Time</div>
 
-          <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-5">
+          <div
+            onClick={() => setTformatModal(true)}
+            className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-5"
+          >
             <img className="h-8 mr-4" src="/images/timeformat.png" alt="" />
             <div className="text ">Time Format</div>
           </div>
 
-          <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4">
+          <div
+            onClick={() => setDformatModal(true)}
+            className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4"
+          >
             <img className="h-8 mr-4" src="/images/dateformat.png" alt="" />
             <div className="text ">Date Format</div>
           </div>
-          <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4">
+          <div
+            onClick={() => setShowReminderModal(true)}
+            className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4"
+          >
             <img className="h-8 mr-4" src="/images/reminder.png" alt="" />
             <div className="text ">Task Reminder Default</div>
           </div>
@@ -54,7 +119,10 @@ function Settings() {
         <div className="p-2 border-b border-gray-300 settingSect ">
           <div className="p-3 text-gray-700">About</div>
 
-          <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-5">
+          <div
+            onClick={() => setShowLangModal(true)}
+            className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-5"
+          >
             <img className="h-8 mr-4" src="/images/language.png" alt="" />
             <div className="text ">Language</div>
           </div>
@@ -77,6 +145,172 @@ function Settings() {
           </div>
         </div>
       </div>
+      {showLangModal && (
+        <div
+          onClick={() => setShowLangModal(false)}
+          className="langModalOverlay  flex items-center justify-center fixed top-0 right-0 left-0 bottom-0 bg-black/50 z-[9999]"
+        >
+          <div
+            ref={langModalRef}
+            onClick={(e) => e.stopPropagation()}
+            className="langModalCont    w-[70%]  bg-white rounded-2xl z-[10000]  p-4"
+          >
+            <div className="langHeader   top-0 left-0 font-bold">Language</div>
+
+            <div className="flex-1 overflow-y-auto">
+              <LanguageSelector
+                currentLang={localStorage.getItem("language") || "system"}
+                onSelect={(lang) => setSelectedLang(lang)}
+              />
+            </div>
+
+            <button
+              className="p-3 w-full font-semibold text-[#4d74b4] cursor-pointer text-right"
+              type="button"
+              onClick={() => {
+                changeLanguage(selectedLang);
+                setShowLangModal(false);
+              }}
+            >
+              SELECT
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* {showTformatModal && (
+        <div
+          ref={timeFormatRef}
+          className="timeFormatModalOverlay flex justify-center items-center fixed top-0 bottom-0 left-0 right-0 bg-black/50 z-50"
+          onClick={() => setTformatModal(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="timeModalCont p-4 flex flex-col w-[70%] bg-white rounded-2xl"
+          >
+            <h1 className="font-bold mb-2">Time Format</h1>
+            <label className="py-3">
+              <input className="mr-3" type="radio" name="tFormat" id="" />
+              System default
+            </label>
+            <label className="py-3">
+              <input className="mr-3" type="radio" name="tFormat" id="" />
+              24 Hour
+            </label>
+            <label className="py-3">
+              <input className="mr-3" type="radio" name="tFormat" id="" />
+              12 Hour
+            </label>
+            <div className=" p-2 text-right">
+              <button
+                className="cursor-pointer mr-4 font-bold text-blue-300/80"
+                onClick={() => setTformatModal(false)}
+              >
+                CANCEL
+              </button>
+              <button
+                onClick={() => setTformatModal(false)}
+                className="cursor-pointer mr-2 font-bold text-blue-500"
+              >
+                SAVE
+              </button>
+            </div>
+          </div>
+        </div>
+      )} */}
+
+      {/* {showDformatModal && (
+        <div
+          ref={timeFormatRef}
+          className="timeFormatModalOverlay flex justify-center items-center fixed top-0 bottom-0 left-0 right-0 bg-black/50 z-50"
+          onClick={() => setDformatModal(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="timeModalCont p-4 flex flex-col w-[70%] bg-white rounded-2xl"
+          >
+            <h1 className="font-bold mb-2">Date Format</h1>
+            <label className="py-3">
+              <input className="mr-3" type="radio" name="tFormat" id="" />
+              {date3}(Year/Month/Day)
+            </label>
+            <label className="py-3">
+              <input className="mr-3" type="radio" name="tFormat" id="" />
+              {date1}(Day/Month/Year)
+            </label>
+            <label className="py-3">
+              <input className="mr-3" type="radio" name="tFormat" id="" />
+              {date2}(month/Day/Year)
+            </label>
+            <div className=" p-2 text-right">
+              <button
+                className="cursor-pointer mr-4 font-bold text-blue-300/80"
+                onClick={() => setDformatModal(false)}
+              >
+                CANCEL
+              </button>
+              <button
+                onClick={() => setDformatModal(false)}
+                className="cursor-pointer mr-2 font-bold text-blue-500"
+              >
+                SAVE
+              </button>
+            </div>
+          </div>
+        </div>
+      )} */}
+
+      {showTformatModal && (
+        <SettingsModals
+          title="Time Format"
+          options={["System default", "24 Hour", "12 Hour"]}
+          value={selectedTimeFormat}
+          onSelect={setSelectedTimeFormat}
+          onSave={() => {
+            localStorage.setItem("timeFormat", selectedTimeFormat);
+            setTformatModal(false);
+          }}
+          onClose={() => setTformatModal(false)}
+        />
+      )}
+
+      {showDformatModal && (
+        <SettingsModals
+          title="Date Format"
+          options={[
+            `${date3} (Year/Month/Day)`,
+            `${date1} (Day/Month/Year)`,
+            `${date2} (Month/Day/Year)`,
+          ]}
+          value={selectedDateFormat}
+          onSelect={setSelectedDateFormat}
+          onSave={() => {
+            localStorage.setItem("dateFormat", selectedDateFormat);
+            setDformatModal(false);
+          }}
+          onClose={() => setDformatModal(false)}
+        />
+      )}
+
+      {showReminderModal && (
+        <SettingsModals
+          title="Task reminder default"
+          options={[
+            "5 minutes before",
+            "10 minutes before",
+            "15 minutes before",
+            "30 minutes before",
+          ]}
+          value={selectedReminderFormat}
+          onSelect={setSelectedReminderFormat}
+          onSave={() => {
+            localStorage.setItem("reminderDefault", selectedReminderFormat);
+            setShowReminderModal(false);
+          }}
+          onClose={() => setShowReminderModal(false)}
+        />
+      )}
+
       <FootNav />
     </>
   );

@@ -66,7 +66,6 @@ const ManageCategories = () => {
       }
     };
 
-    // Only listen when modal is open
     if (categoryToDelete !== null) {
       document.addEventListener("mousedown", handleClickOutside);
     }

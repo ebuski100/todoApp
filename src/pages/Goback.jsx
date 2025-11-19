@@ -8,7 +8,11 @@ function Goback({ className }) {
   return (
     <>
       <div onClick={goBack} className={className}>
-        <img src="/images/back arrow.png" className="h-8 active:h-9 " alt="" />
+        <img
+          src="/images/back arrow.png"
+          className="h-6 active:h-9 cursor-pointer"
+          alt=""
+        />
       </div>
     </>
   );

@@ -10,7 +10,7 @@ const Faq = () => {
         <Goback />
         <div className="text-2xl font-bold ml-5">FAQ</div>
       </div>
-      <p className="text-gray-700/80 ">you might be wondering</p>
+      <p className="text-gray-700/80 pl-2 ">you might be wondering</p>
 
       <div className="faqCont p-4 text-gray-700 bg-gray-300/30 h-auto rounded-2xl w-[100%]  my-5 h-20">
         <div className="flex py-6 flex-row justify-between items-center">

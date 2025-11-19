@@ -1,0 +1,42 @@
+{
+  "notifications": [
+    { "name": "blared", "file": "/sounds/blared-note.wav" },
+    { "name": "confirm", "file": "/sounds/confirm-note.wav" },
+    { "name": "ding-dong", "file": "/sounds/ding-dong-note.wav" },
+    { "name": "man-yawn", "file": "/sounds/man-yawn-note.wav" },
+    { "name": "piano", "file": "/sounds/piano-note.wav" },
+    { "name": "ping", "file": "/sounds/ping-note.wav" },
+    { "name": "rooster", "file": "/sounds/rooster-note.wav" },
+    { "name": "sliff", "file": "/sounds/sliff-note.wav" },
+    { "name": "tickle", "file": "/sounds/tickle-note.wav" },
+    { "name": "done", "file": "/sounds/done-note.wav" }
+  ],
+
+  "taskReminder": [
+    { "name": "blared", "file": "/sounds/blared-note.wav" },
+    { "name": "confirm", "file": "/sounds/confirm-note.wav" },
+    { "name": "ding-dong", "file": "/sounds/ding-dong-note.wav" },
+    { "name": "man-yawn", "file": "/sounds/man-yawn-note.wav" },
+    { "name": "piano", "file": "/sounds/piano-note.wav" },
+    { "name": "ping", "file": "/sounds/ping-note.wav" },
+    { "name": "rooster", "file": "/sounds/rooster-note.wav" },
+
+    { "name": "tickle", "file": "/sounds/tickle-note.wav" },
+    { "name": "done", "file": "/sounds/done-note.wav" }
+  ],
+  "alarms": [
+    { "name": "beep", "file": "/sounds/beep-alarm.wav" },
+    { "name": "blaring", "file": "/sounds/blaring-alarm.mp3" },
+    { "name": "marimba", "file": "/sounds/marimba-alarm.wav" },
+    { "name": "morning", "file": "/sounds/morning-alarm.mp3" },
+
+    { "name": "game", "file": "/sounds/game-emergency-alarm.wav" },
+
+    { "name": "night", "file": "/sounds/night-alarm.wav" },
+    { "name": "percussion", "file": "/sounds/percussion-alarm.wav" },
+    { "name": "ringtone", "file": "/sounds/ringtone-alarm.wav" },
+    { "name": "tick-tock", "file": "/sounds/tick-tock-alarm.wav" },
+    { "name": "waiting", "file": "/sounds/waiting-alarm.wav" },
+    { "name": "telephone", "file": "/sounds/telephone-alarm.wav" }
+  ]
+}
