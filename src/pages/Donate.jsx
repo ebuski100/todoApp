@@ -3,7 +3,7 @@ import Goback from "./Goback";
 function Donate() {
   return (
     <>
-      <div className="donateCont">
+      <div className="donateCont overflow-y-auto h-full">
         <Goback />
         <div className="donateHeader">
           Support To-do List Team
