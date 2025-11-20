@@ -4,7 +4,9 @@ function SideNav({ onClose, showSideNav, ebube }) {
       <div className="  fixed inset-0 bg-black/80 z-40" onClick={onClose}>
         <div
           className={`navContainer fixed top-0 left-0 h-full w-80 bg-white z-50 transform duration-1000 transition-transform  ease-linear
-          ${showSideNav ? "translate-x-0" : "-translate-x-full"}`}
+          ${
+            showSideNav ? "translate-x-0 overflow-y-auto" : "-translate-x-full"
+          }`}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="nav-header-cont">
