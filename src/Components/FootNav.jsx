@@ -18,8 +18,6 @@ function FootNav() {
 
   const isActive = (path) => location.pathname === path;
 
-  const ebube = "emeka";
-
   const handleNavigate = (path) => {
     if (location.pathname !== path) {
       navigate(path);
@@ -124,11 +122,7 @@ function FootNav() {
       </div>
 
       {showSideNav && (
-        <SideNav
-          onClose={closeSideNav}
-          showSideNav={showSideNav}
-          ebube={ebube}
-        />
+        <SideNav onClose={closeSideNav} showSideNav={showSideNav} />
       )}
     </>
   );

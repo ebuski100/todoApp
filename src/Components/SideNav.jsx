@@ -1,4 +1,11 @@
-function SideNav({ onClose, showSideNav, ebube }) {
+import { useNavigate } from "react-router-dom";
+
+function SideNav({ onClose, showSideNav }) {
+  const navigate = useNavigate();
+
+  function goDonate() {
+    navigate("/donate");
+  }
   return (
     <>
       <div className="  fixed inset-0 bg-black/80 z-40" onClick={onClose}>
@@ -41,14 +48,6 @@ function SideNav({ onClose, showSideNav, ebube }) {
               <div className="profile">
                 <div className="profile-img"></div>
                 <div className="profile-name">user0t09fqiwj09qu09qiwu0</div>
-                <div className="edit-btn">
-                  <img src="/images/down.png" alt="" />
-                </div>
-              </div>
-              <div className="notification">
-                <div className="notification-icon  notification-item">
-                  <img src="/images/bell-black.png" alt="" />
-                </div>
               </div>
             </div>
 
@@ -87,7 +86,9 @@ function SideNav({ onClose, showSideNav, ebube }) {
             </div>
             <div className="donate navItem">
               <img src="/images/blue-donate-icon.png" alt="" />
-              <div className="themeText">Donate</div>
+              <div onClick={goDonate} className="themeText">
+                Donate
+              </div>
             </div>
             <div className="feedback navItem">
               <img src="/images/feedback-blue.png" alt="" />
@@ -98,8 +99,6 @@ function SideNav({ onClose, showSideNav, ebube }) {
               <img src="/images/share-blue.png" alt="" />
               <div className="settingsText">Share App</div>
             </div>
-
-            <div className="font-bold text-2xl text-blue-500 ">{ebube}</div>
           </div>
         </div>
       </div>

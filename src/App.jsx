@@ -17,7 +17,6 @@ import SoundSetting from "./pages/SoundSetting";
 
 // import TaskTemplates from "./pages/TaskTemplates";
 import Donate from "./pages/Donate";
-import SideNavLogo from "./Components/SideNavLogo";
 
 import User from "./pages/User";
 
@@ -39,7 +38,6 @@ function App() {
         <Route path="/SoundSetting" element={<SoundSetting />} />
         <Route path="/donate" element={<Donate />} />
         <Route path="/User" element={<User />} />
-        <Route path="/SideNavLogo" element={<SideNavLogo />} />
       </Routes>
     </div>
   );

@@ -7,7 +7,7 @@ function Donate() {
         <Goback />
         <div className="donateHeader">
           Support To-do List Team
-          <img src="images/heart-red.png" height={24} alt="" />
+          <img src="images/heart-red.png" className="h-10" alt="" />
         </div>
         <div className="headerDesc">
           This is a donation page. You could treat us with a meal or a cup of
@@ -56,7 +56,7 @@ function Donate() {
           <img src="check-mark-in-a-circle-blue.png" height={16} alt="" />
         </div>
 
-        <div className="supportCta">SUPPORT</div>
+        <div className="supportCta ">SUPPORT</div>
       </div>
     </>
   );
