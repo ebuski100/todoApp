@@ -1,11 +1,24 @@
 import { useNavigate } from "react-router-dom";
 
+import { useState, useEffect } from "react";
+
 function SideNavLogo() {
   const navigate = useNavigate();
 
-  const goDonate = () => {
-    navigate("/Donate");
-  };
+  const savedName = localStorage.getItem("userName") || "Guest";
+
+  const [profilePic, setProfilePic] = useState("");
+
+  useEffect(() => {
+    const savedPic = localStorage.getItem("profilePic");
+    if (savedPic) {
+      setProfilePic(savedPic);
+    }
+  }, []);
+
+  function goDonate() {
+    navigate("/donate");
+  }
   return (
     <div className="navContainer">
       <div className="nav-header-cont">
@@ -38,16 +51,21 @@ function SideNavLogo() {
       <div className="nav-cont-body">
         <div className="side-nav-sub-header">
           <div className="profile">
-            <div className="profile-img"></div>
-            <div className="profile-name">user0t09fqiwj09qu09qiwu0</div>
-            <div className="edit-btn">
-              <img src="/images/down.png" alt="" />
-            </div>
-          </div>
-          <div className="notification">
-            <div className="notification-icon  notification-item">
-              <img src="/images/bell-black.png" alt="" />
-            </div>
+            {/* <div className="profile-img"></div> */}
+            {profilePic ? (
+              <div className=" w-[50%] flex justify-end">
+                <img
+                  src={profilePic}
+                  alt="Profile"
+                  className="w-15 h-15 rounded-full object-cover border border-2 border-gray-700"
+                />
+              </div>
+            ) : (
+              <div className="w-20 h-20 rounded-full bg-gray-300 flex items-center justify-center">
+                <span>No Photo</span>
+              </div>
+            )}
+            <div className="profile-name">{savedName}</div>
           </div>
         </div>
 
@@ -84,7 +102,13 @@ function SideNavLogo() {
           <img src="/images/theme-blue.png" alt="" />
           <div className="themeText">Theme</div>
         </div>
-        <div onClick={goDonate} className="donate navItem">
+        <div
+          onClick={() => {
+            goDonate();
+            console.log("hello you clicked donate");
+          }}
+          className="donate navItem"
+        >
           <img src="/images/blue-donate-icon.png" alt="" />
           <div className="themeText">Donate</div>
         </div>

@@ -12,6 +12,12 @@ function Settings() {
   const [showDformatModal, setDformatModal] = useState(false);
 
   const [showReminderModal, setShowReminderModal] = useState(false);
+
+  // const openTimeModal = () => {
+  //   setTempTimeFormat(selectedTimeFormat);
+  //   showTformatModal(true);
+  // };
+
   const langModalRef = useRef(null);
 
   const navigate = useNavigate();
@@ -46,6 +52,10 @@ function Settings() {
   const goNotification = () => {
     navigate("/SoundSetting");
   };
+
+  const goAccount = () => {
+    navigate("/User");
+  };
   const changeLanguage = (lang) => {
     i18n.changeLanguage(lang);
     localStorage.setItem("language", lang);
@@ -58,7 +68,15 @@ function Settings() {
     localStorage.getItem("dateFormat") || date1
   );
   const [selectedReminderFormat, setSelectedReminderFormat] = useState(
-    localStorage.getItem("dateFormat") || "5 minutes before"
+    localStorage.getItem("reminderDefault") || "5 minutes before"
+  );
+
+  const [tempTimeFormat, setTempTimeFormat] = useState(selectedTimeFormat);
+
+  const [tempDateFormat, setTempDateFormat] = useState(selectedDateFormat);
+
+  const [tempDefaultReminder, setTempDefaultReminder] = useState(
+    selectedReminderFormat
   );
   return (
     <>
@@ -69,7 +87,10 @@ function Settings() {
         <div className="p-2 border-b border-gray-300 settingSect ">
           <div className="p-3 text-gray-700">{t("Customize")}</div>
 
-          <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-5">
+          <div
+            onClick={goAccount}
+            className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-5"
+          >
             <img className="h-8 mr-4" src="/images/user-blue.png" alt="" />
             <div className="text ">{t("Account")}</div>
           </div>
@@ -97,7 +118,10 @@ function Settings() {
             className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-5"
           >
             <img className="h-8 mr-4" src="/images/timeformat.png" alt="" />
-            <div className="text ">Time Format</div>
+            <div className=" flex flex-col ">
+              <div className="text ">Time Format</div>
+              <div className="text-sm text-gray-600">{selectedTimeFormat}</div>
+            </div>
           </div>
 
           <div
@@ -105,14 +129,22 @@ function Settings() {
             className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4"
           >
             <img className="h-8 mr-4" src="/images/dateformat.png" alt="" />
-            <div className="text ">Date Format</div>
+            <div className=" flex flex-col ">
+              <div className="text ">Date Format</div>
+              <div className="text-sm text-gray-600">{selectedDateFormat}</div>
+            </div>
           </div>
           <div
             onClick={() => setShowReminderModal(true)}
             className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4"
           >
             <img className="h-8 mr-4" src="/images/reminder.png" alt="" />
-            <div className="text ">Task Reminder Default</div>
+            <div className=" flex flex-col ">
+              <div className="text ">Task Reminder default</div>
+              <div className="text-sm text-gray-600">
+                {selectedReminderFormat}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -264,13 +296,18 @@ function Settings() {
         <SettingsModals
           title="Time Format"
           options={["System default", "24 Hour", "12 Hour"]}
-          value={selectedTimeFormat}
-          onSelect={setSelectedTimeFormat}
+          value={tempTimeFormat}
+          onSelect={(value) => setTempTimeFormat(value)}
           onSave={() => {
-            localStorage.setItem("timeFormat", selectedTimeFormat);
+            setSelectedTimeFormat(tempTimeFormat);
+
+            localStorage.setItem("timeFormat", tempTimeFormat);
             setTformatModal(false);
           }}
-          onClose={() => setTformatModal(false)}
+          onClose={() => {
+            setTempTimeFormat(selectedTimeFormat);
+            setTformatModal(false);
+          }}
         />
       )}
 
@@ -278,17 +315,21 @@ function Settings() {
         <SettingsModals
           title="Date Format"
           options={[
-            `${date3} (Year/Month/Day)`,
             `${date1} (Day/Month/Year)`,
             `${date2} (Month/Day/Year)`,
+            `${date3} (Year/Month/Day)`,
           ]}
-          value={selectedDateFormat}
-          onSelect={setSelectedDateFormat}
+          value={tempDateFormat}
+          onSelect={(value) => setTempDateFormat(value)}
           onSave={() => {
-            localStorage.setItem("dateFormat", selectedDateFormat);
+            setSelectedDateFormat(tempDateFormat);
+            localStorage.setItem("dateFormat", tempDateFormat);
             setDformatModal(false);
           }}
-          onClose={() => setDformatModal(false)}
+          onClose={() => {
+            setTempDateFormat(selectedDateFormat);
+            setDformatModal(false);
+          }}
         />
       )}
 
@@ -301,13 +342,17 @@ function Settings() {
             "15 minutes before",
             "30 minutes before",
           ]}
-          value={selectedReminderFormat}
-          onSelect={setSelectedReminderFormat}
+          value={tempDefaultReminder}
+          onSelect={(value) => setTempDefaultReminder(value)}
           onSave={() => {
-            localStorage.setItem("reminderDefault", selectedReminderFormat);
+            setSelectedReminderFormat(tempDefaultReminder);
+            localStorage.setItem("reminderDefault", tempDefaultReminder);
             setShowReminderModal(false);
           }}
-          onClose={() => setShowReminderModal(false)}
+          onClose={() => {
+            setTempDefaultReminder(selectedReminderFormat);
+            setShowReminderModal(false);
+          }}
         />
       )}
 
