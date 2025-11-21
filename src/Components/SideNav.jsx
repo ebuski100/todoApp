@@ -1,11 +1,54 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import TaskInput from "./TaskInput";
 
 function SideNav({ onClose, showSideNav }) {
+  const [showInput, setShowInput] = useState(false);
   const navigate = useNavigate();
+  const savedName = localStorage.getItem("userName") || "Guest";
+
+  const [profilePic, setProfilePic] = useState("");
+
+  useEffect(() => {
+    const savedPic = localStorage.getItem("profilePic");
+    if (savedPic) {
+      setProfilePic(savedPic);
+    }
+  }, []);
 
   function goDonate() {
     navigate("/donate");
   }
+
+  function goAccount() {
+    navigate("/User");
+  }
+
+  function ShowInput() {
+    setShowInput(true);
+    console.log("input shown");
+  }
+  function HideInput() {
+    setShowInput(false);
+  }
+
+  const handleShare = () => {
+    const shareData = {
+      title: "My Todo App",
+      text: "Check out my awesome todo app!",
+      url: window.location.href,
+    };
+
+    if (navigator.share) {
+      navigator
+        .share(shareData)
+        .then(() => console.log("Shared successfully"))
+        .catch((error) => console.log("Error sharing:", error));
+    } else {
+      alert("Sharing is not supported on this device.");
+    }
+  };
+
   return (
     <>
       <div className="  fixed inset-0 bg-black/80 z-40" onClick={onClose}>
@@ -45,9 +88,14 @@ function SideNav({ onClose, showSideNav }) {
           </div>
           <div className="nav-cont-body">
             <div className="side-nav-sub-header">
-              <div className="profile">
-                <div className="profile-img"></div>
-                <div className="profile-name">user0t09fqiwj09qu09qiwu0</div>
+              <div onClick={goAccount} className="profile">
+                <img
+                  className="w-[40px] h-[40px] rounded-full object-cover border border-2 mr-3 border-gray-700"
+                  src={profilePic}
+                  alt=""
+                />
+
+                <div className="profile-name">{savedName}</div>
               </div>
             </div>
 
@@ -60,7 +108,9 @@ function SideNav({ onClose, showSideNav }) {
                 <img src="/images/plus-white.png" alt="" className="h-4" />
               </div>
 
-              <div className="addTaskText">Add task</div>
+              <div onClick={ShowInput} className="addTaskText">
+                Add task
+              </div>
             </div>
             <div className="proSect navItem">
               <img src="/images/crown.png" alt="" />
@@ -84,24 +134,28 @@ function SideNav({ onClose, showSideNav }) {
               <img src="/images/theme-blue.png" alt="" />
               <div className="themeText">Theme</div>
             </div>
-            <div className="donate navItem">
+            <div onClick={goDonate} className="donate navItem">
               <img src="/images/blue-donate-icon.png" alt="" />
-              <div onClick={goDonate} className="themeText">
-                Donate
-              </div>
+              <div className="themeText">Donate</div>
             </div>
             <div className="feedback navItem">
               <img src="/images/feedback-blue.png" alt="" />
               <div className="feedbackText">Feedback</div>
             </div>
 
-            <div className="share navItem">
+            <div onClick={handleShare} className="share navItem">
               <img src="/images/share-blue.png" alt="" />
               <div className="settingsText">Share App</div>
             </div>
           </div>
         </div>
       </div>
+      {showInput && (
+        <div>
+          <div onClick={HideInput} className="inputOverlay "></div>
+          <TaskInput />
+        </div>
+      )}
     </>
   );
 }

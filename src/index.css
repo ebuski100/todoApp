@@ -261,13 +261,7 @@ body {
 .notification-item:active {
   transform: scale(1.05) translateX(2px) translateY(2px);
 }
-.profile-img {
-  height: 2rem;
-  width: 2rem;
-  background-color: blue;
-  border-radius: 50%;
-  margin-right: 0.5rem;
-}
+
 .profile-name {
   font-weight: bold;
   margin-right: 0.5rem;
@@ -772,6 +766,9 @@ body {
   width: 300px;
   margin: 2rem auto 0 auto;
   cursor: pointer;
+}
+.supportActive {
+  background: #0606e7;
 }
 /* Task Page */
 .dropDownIcon {
