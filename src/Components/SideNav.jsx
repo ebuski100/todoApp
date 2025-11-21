@@ -16,6 +16,10 @@ function SideNav({ onClose, showSideNav }) {
     }
   }, []);
 
+  const openEmail = () => {
+    window.location.href = "mailto: felixebus042@gmail.com";
+  };
+
   function goDonate() {
     navigate("/donate");
   }
@@ -90,7 +94,10 @@ function SideNav({ onClose, showSideNav }) {
             <div className="side-nav-sub-header">
               <div onClick={goAccount} className="profile">
                 <img
-                  className="w-[40px] h-[40px] rounded-full object-cover border border-2 mr-3 border-gray-700"
+                  // className="w-[40px] h-[40px] rounded-full object-cover border border-2 mr-3 border-gray-700"
+                  className={`w-[40px] h-[40px] rounded-full object-cover border border-2 mr-3 border-gray-700 ${
+                    profilePic ? "bg-transparent" : "bg-gray-300 border-none"
+                  }`}
                   src={profilePic}
                   alt=""
                 />
@@ -140,7 +147,9 @@ function SideNav({ onClose, showSideNav }) {
             </div>
             <div className="feedback navItem">
               <img src="/images/feedback-blue.png" alt="" />
-              <div className="feedbackText">Feedback</div>
+              <div onClick={openEmail} className="feedbackText">
+                Feedback
+              </div>
             </div>
 
             <div onClick={handleShare} className="share navItem">
