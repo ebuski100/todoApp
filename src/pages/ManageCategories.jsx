@@ -4,7 +4,6 @@ import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
 const ManageCategories = () => {
   const initialCategories = [
-    { id: 1, name: "All", number: 0 },
     { id: 2, name: "work", number: 0 },
     { id: 3, name: "Birthday", number: 0 },
   ];
@@ -209,7 +208,7 @@ const ManageCategories = () => {
           <span className="font-bold text-blue-700">Create New</span>
         </div>
       </div>
-      <div className="reorderInfo">Lond press and drag to reorder</div>
+      <div className="reorderInfo">Long press and drag to reorder</div>
       {showModal && (
         <div className="modalOverlay" onClick={() => setShowModal(false)}>
           <div className="modalContent" onClick={(e) => e.stopPropagation()}>

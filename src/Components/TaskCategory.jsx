@@ -3,17 +3,26 @@ import { useNavigate } from "react-router-dom";
 
 function TaskCategory() {
   const initialCategories = [
-    { id: 1, name: "All" },
-    { id: 2, name: "work" },
-    { id: 3, name: "personal" },
-    { id: 4, name: "Birthday" },
+    { id: 1, name: "All", img: "/images/meditation.png", isActive: true },
+    { id: 2, name: "work", img: "/images/work.png", isActive: false },
+    {
+      id: 3,
+      name: "personal",
+      img: "/images/sittingLady.png",
+      isActive: false,
+    },
+    { id: 4, name: "Birthday", img: "/images/birthday.png", isActive: false },
+    { id: 5, name: "Sports", img: "/images/sports.png", isActive: false },
   ];
+
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState(initialCategories);
+  const savedName = localStorage.getItem("userName") || "Guest";
   const [activeCategory, setActiveCategory] = useState(() => {
     const savedActive = localStorage.getItem("activeCategory");
     return savedActive ? Number(savedActive) : 1;
   });
+  const currentCategory = categories.find((cat) => cat.id === activeCategory);
 
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -38,9 +47,9 @@ function TaskCategory() {
 
   return (
     <>
-      <ul className="taskCategoryCont">
+      <div className="taskCategoryCont">
         {categories.map((category) => (
-          <li key={category.id}>
+          <div key={category.id}>
             <div
               onClick={() => {
                 setActiveCategory(category.id);
@@ -51,11 +60,28 @@ function TaskCategory() {
             >
               {category.name}
             </div>
-          </li>
+          </div>
         ))}
 
         <div style={{ minWidth: "3rem" }} />
-      </ul>
+      </div>
+
+      {currentCategory && (
+        <div>
+          <div className="w-full p-2 flex flex-row  justify-between  ">
+            <div className=" text-center  font-bold text-blue-500 text-[20px] w-full">
+              Welcome {savedName}
+            </div>
+          </div>
+          <div className="taskImgCont ">
+            <img src={currentCategory.img} alt="" className=" w-full my-10" />
+            <div className="taskImgtext">
+              No task in {currentCategory.name}. <br />
+              Click + to create your task
+            </div>
+          </div>
+        </div>
+      )}
       <div ref={menuRef}>
         <div onClick={() => setOpen(!open)} className="taskNavImg">
           <img src="/images/three-dots-grey.png" alt="" className="h-10" />

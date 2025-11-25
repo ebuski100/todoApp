@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import TaskInput from "./TaskInput";
+import CategoryDropdown from "./CategoryDropdown";
 
 function SideNav({ onClose, showSideNav }) {
   const [showInput, setShowInput] = useState(false);
@@ -94,7 +95,6 @@ function SideNav({ onClose, showSideNav }) {
             <div className="side-nav-sub-header">
               <div onClick={goAccount} className="profile">
                 <img
-                  // className="w-[40px] h-[40px] rounded-full object-cover border border-2 mr-3 border-gray-700"
                   className={`w-[40px] h-[40px] rounded-full object-cover border border-2 mr-3 border-gray-700 ${
                     profilePic ? "bg-transparent" : "bg-gray-300 border-none"
                   }`}
@@ -123,18 +123,8 @@ function SideNav({ onClose, showSideNav }) {
               <img src="/images/crown.png" alt="" />
               <div className="proText">PRO Version</div>
             </div>
-            <div className="category navItem">
-              <div className="category1st">
-                <div className="categoryImg">
-                  <img src="/images/category-blue.png" alt="" />
-                </div>
-                <div className="categoryText">Category</div>
-              </div>
 
-              <div className="categoryDropdown">
-                <img src="/images/grey arrow down.png" alt="" />
-              </div>
-            </div>
+            <CategoryDropdown />
             <div className="nav-hr"></div>
 
             <div className="navItem theme">

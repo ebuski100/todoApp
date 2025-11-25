@@ -382,11 +382,12 @@ body {
   max-width: 100vw;
   padding: 0.5rem 0 0.5rem 0.5rem;
   overflow-x: scroll;
-  height: 3rem;
+  overflow-y: auto;
+  height: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
   margin-bottom: 1rem;
-  /* border: 5px solid blue; */
+  /* border: 5px solid blue;s */
 }
 
 .taskCategoryCont::-webkit-scrollbar {
@@ -491,9 +492,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 80vh;
-  /* padding: 5rem 3rem 15rem 3rem; */
-  padding-bottom: 14rem;
+
+  padding-bottom: 10rem;
 }
 .taskImgCont img {
   margin-bottom: 1rem;
