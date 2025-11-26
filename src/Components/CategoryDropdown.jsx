@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import CreateCategory from "./CreateCategory";
 
-function CategoryDropdown() {
+function CategoryDropdown({ ontap }) {
   const defaultCategories = [
     {
       id: 1,
@@ -70,7 +70,18 @@ function CategoryDropdown() {
                 }}
                 className="flex flex-row items-center justify-between p-4 cursor-pointer hover:bg-gray-100 "
               >
-                <div className="flex flex-row ">
+                <div
+                  onClick={() => {
+                    localStorage.setItem("activeCategory", cat.id);
+                    window.dispatchEvent(
+                      new CustomEvent("categoryChanged", {
+                        detail: cat.id,
+                      })
+                    );
+                    ontap();
+                  }}
+                  className="flex flex-row "
+                >
                   <div>
                     <img
                       src="/images/sideNav-note.png"

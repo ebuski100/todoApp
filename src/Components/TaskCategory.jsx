@@ -15,8 +15,50 @@ function TaskCategory() {
     { id: 5, name: "Sports", img: "/images/sports.png", isActive: false },
   ];
 
+  // const defaultCategories = [
+  //   { id: 1, name: "All", img: "/images/meditation.png", number: 0 },
+  // ];
+
+  // const [categories, setCategories] = useState(() => {
+  //   const stored = localStorage.getItem("categories");
+  //   if (stored) return JSON.parse(stored);
+
+  //   localStorage.setItem("categories", JSON.stringify(defaultCategories));
+  //   return defaultCategories;
+  // });
+
   const [open, setOpen] = useState(false);
-  const [categories, setCategories] = useState(initialCategories);
+  const [categories, setCategories] = useState(() => {
+    const stored = localStorage.getItem("categories");
+
+    if (stored) {
+      const parsed = JSON.parse(stored);
+
+      const hasAll = parsed.some((cat) => cat.name === "All");
+
+      if (!hasAll) {
+        parsed.unshift(initialCategories[0]);
+      }
+
+      return parsed;
+    }
+
+    localStorage.setItem("categories", JSON.stringify(initialCategories));
+    return initialCategories;
+  });
+
+  useEffect(() => {
+    const handleCategoryChange = (e) => {
+      setActiveCategory(e.detail); // instant UI update
+    };
+
+    window.addEventListener("categoryChanged", handleCategoryChange);
+
+    return () => {
+      window.removeEventListener("categoryChanged", handleCategoryChange);
+    };
+  }, []);
+
   const savedName = localStorage.getItem("userName") || "Guest";
   const [activeCategory, setActiveCategory] = useState(() => {
     const savedActive = localStorage.getItem("activeCategory");
@@ -43,6 +85,16 @@ function TaskCategory() {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const updated = localStorage.getItem("categories");
+      if (updated) setCategories(JSON.parse(updated));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   return (

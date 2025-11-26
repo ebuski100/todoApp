@@ -10,6 +10,7 @@ function FootNav() {
     setShowSideNav(true);
     document.body.style.overflow = "hidden";
   };
+
   const closeSideNav = () => {
     setShowSideNav(false);
 
@@ -122,7 +123,11 @@ function FootNav() {
       </div>
 
       {showSideNav && (
-        <SideNav onClose={closeSideNav} showSideNav={showSideNav} />
+        <SideNav
+          onClose={closeSideNav}
+          ontap={() => setShowSideNav(false)}
+          showSideNav={showSideNav}
+        />
       )}
     </>
   );

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import TaskInput from "./TaskInput";
 import CategoryDropdown from "./CategoryDropdown";
 
-function SideNav({ onClose, showSideNav }) {
+function SideNav({ onClose, showSideNav, ontap }) {
   const [showInput, setShowInput] = useState(false);
   const navigate = useNavigate();
   const savedName = localStorage.getItem("userName") || "Guest";
@@ -124,7 +124,7 @@ function SideNav({ onClose, showSideNav }) {
               <div className="proText">PRO Version</div>
             </div>
 
-            <CategoryDropdown />
+            <CategoryDropdown ontap={ontap} />
             <div className="nav-hr"></div>
 
             <div className="navItem theme">

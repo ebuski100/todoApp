@@ -90,6 +90,7 @@ const ManageCategories = () => {
     const newCategoryItem = {
       id: Date.now(),
       name: newCategory.trim(),
+      img: "/images/work.png",
       number: 0,
     };
     setCategories([...categories, newCategoryItem]);
