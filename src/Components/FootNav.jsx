@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import SideNav from "./SideNav";
-function FootNav() {
+function FootNav({ categories, setCategories }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [showSideNav, setShowSideNav] = useState(false);
@@ -127,6 +127,8 @@ function FootNav() {
           onClose={closeSideNav}
           ontap={() => setShowSideNav(false)}
           showSideNav={showSideNav}
+          categories={categories}
+          setCategories={setCategories}
         />
       )}
     </>

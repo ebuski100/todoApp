@@ -2,22 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import Goback from "./Goback";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
-const ManageCategories = () => {
-  const initialCategories = [
-    { id: 2, name: "work", number: 0 },
-    { id: 3, name: "Birthday", number: 0 },
-  ];
-
+const ManageCategories = ({ categories, setCategories }) => {
   const [categoryToDelete, setCategoryToDelete] = useState(null);
 
   const [editingCategory, setEditingCategory] = useState(null);
   const [editedCategoryName, setEditedCategoryName] = useState("");
   const [showEditCatModal, setShowEditCatModal] = useState(false);
-
-  const [categories, setCategories] = useState(() => {
-    const stored = localStorage.getItem("categories");
-    return stored ? JSON.parse(stored) : initialCategories;
-  });
 
   const [newCategory, setNewCategory] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -25,6 +15,8 @@ const ManageCategories = () => {
   const [activeMenuId, setActiveMenuId] = useState(null);
   const menuRef = useRef(null);
   const deleteModalRef = useRef(null);
+
+  const visibleCategories = categories.filter((cat) => cat.deletable !== false);
 
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
@@ -90,10 +82,16 @@ const ManageCategories = () => {
     const newCategoryItem = {
       id: Date.now(),
       name: newCategory.trim(),
-      img: "/images/work.png",
+      img: "/images/sports.png",
       number: 0,
+      deletable: true,
     };
     setCategories([...categories, newCategoryItem]);
+
+    localStorage.setItem("activeCategory", newCategoryItem.id);
+    window.dispatchEvent(
+      new CustomEvent("categoryChanged", { detail: newCategoryItem.id })
+    );
     setNewCategory("");
     setShowModal(false);
   };
@@ -122,7 +120,7 @@ const ManageCategories = () => {
         <Droppable droppableId="categories">
           {(provided) => (
             <ul {...provided.droppableProps} ref={provided.innerRef}>
-              {categories.map((category, index) => (
+              {visibleCategories.map((category, index) => (
                 <Draggable
                   key={category.id}
                   draggableId={String(category.id)}
@@ -218,11 +216,18 @@ const ManageCategories = () => {
               <textarea
                 type="text"
                 placeholder="Input here"
+                maxLength={30}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                  }
+                }}
                 onChange={(e) => setNewCategory(e.target.value)}
                 value={newCategory}
                 className="catInput"
                 autoFocus
               />
+              <p className="text-sm text-gray-500">{newCategory.length}/30</p>
               <div className=" flex justify-end categoryBtns">
                 <button
                   type="button"

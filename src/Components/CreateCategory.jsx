@@ -10,9 +10,16 @@ const CreateCategory = ({ addCategory, newCategory, onChange, onClose }) => {
               placeholder="Input here"
               onChange={onChange}
               value={newCategory}
+              maxLength={30}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                }
+              }}
               className="catInput"
               autoFocus
             />
+            <p className="text-sm text-gray-500">{newCategory.length}/30</p>
             <div className=" flex justify-end categoryBtns">
               <button
                 type="button"

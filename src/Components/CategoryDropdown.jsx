@@ -1,16 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CreateCategory from "./CreateCategory";
 
-function CategoryDropdown({ ontap }) {
-  const defaultCategories = [
-    {
-      id: 1,
-      name: "All",
-      number: 0,
-      isDefault: true,
-    },
-  ];
-
+function CategoryDropdown({ ontap, categories, setCategories }) {
   const [newCategory, setNewCategory] = useState("");
   const [createNewModal, setCreateNewModal] = useState(false);
 
@@ -20,17 +11,8 @@ function CategoryDropdown({ ontap }) {
 
   const onChange = (e) => setNewCategory(e.target.value);
 
-  const [categories, setCategories] = useState(() => {
-    const stored = JSON.parse(localStorage.getItem("categories")) || [];
-    return [...defaultCategories, ...stored];
-  });
-
-  useEffect(() => {
-    const storable = categories.filter((cat) => !cat.isDefault);
-    localStorage.setItem("categories", JSON.stringify(storable));
-  }, [categories]);
-
   const [showDropdown, setShowDropdown] = useState(false);
+
   const addCategory = (e) => {
     e.preventDefault();
     if (newCategory.trim() === "") return;
@@ -38,9 +20,10 @@ function CategoryDropdown({ ontap }) {
     const newCategoryItem = {
       id: Date.now(),
       name: newCategory.trim(),
+      img: "/images/sports.png",
       number: 0,
     };
-    setCategories([...categories, newCategoryItem]);
+    setCategories((prev) => [...prev, newCategoryItem]);
     setNewCategory("");
     setCreateNewModal(false);
   };

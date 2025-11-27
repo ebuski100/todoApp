@@ -1,10 +1,6 @@
 import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-// import Category from "./pages/Category";
-// import FootNav from "./Components/FootNav";
-
-// import AddTask from "./Components/AddTask";
-// import TaskCategory from "./Components/TaskCategory";
 import CompletedLink from "./Components/CompletedLink";
 import Calendar from "./pages/Calendar";
 import Completed from "./pages/Completed";
@@ -24,15 +20,84 @@ import User from "./pages/User";
 // import Theme from "./pages/Theme";
 
 function App() {
+  const DEFAULT_CATEGORIES = [
+    {
+      id: 0,
+      name: "All",
+      img: "/images/personal.png",
+      number: 0,
+      deletable: false,
+      isDefault: true,
+    },
+
+    {
+      id: 1,
+      name: "Birthdays",
+      img: "/images/birthday.png",
+      number: 0,
+      deletable: true,
+      isDefault: true,
+    },
+    {
+      id: 2,
+      name: "Work",
+      img: "/images/work.png",
+      number: 0,
+      deletable: true,
+      isDefault: true,
+    },
+    {
+      id: 3,
+      name: "Personal",
+      img: "/images/sittingLady.png",
+      number: 0,
+      deletable: true,
+      isDefault: true,
+    },
+  ];
+
+  const [categories, setCategories] = useState(() => {
+    const saved = JSON.parse(localStorage.getItem("categories"));
+    return Array.isArray(saved)
+      ? [...DEFAULT_CATEGORIES, ...saved]
+      : DEFAULT_CATEGORIES;
+  });
+
+  useEffect(() => {
+    const storable = categories.filter(
+      (cat) => !DEFAULT_CATEGORIES.some((def) => def.id === cat.id)
+    );
+
+    localStorage.setItem("categories", JSON.stringify(storable));
+  }, [categories]);
+
   return (
     <div className="app-container">
       <Routes>
         <Route path="/completed" element={<Completed />} />
         <Route path="/d" element={<CompletedLink />} />
-        <Route path="/" element={<Tasks />} />
-        <Route path="/ManageCategories" element={<ManageCategories />} />
+        <Route
+          path="/"
+          element={
+            <Tasks categories={categories} setCategories={setCategories} />
+          }
+        />
+        <Route
+          path="/ManageCategories"
+          element={
+            <ManageCategories
+              categories={categories}
+              setCategories={setCategories}
+            />
+          }
+        />
         <Route path="/Calendar" element={<Calendar />} />
-        <Route path="/Tasks" element={<Tasks />} />
+        <Route
+          path="/Tasks"
+          element={
+            <Tasks categories={categories} setCategories={setCategories} />
+          }
+        />
         <Route path="/Settings" element={<Settings />} />
         <Route path="/Faq" element={<Faq />} />
         <Route path="/SoundSetting" element={<SoundSetting />} />

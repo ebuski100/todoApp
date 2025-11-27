@@ -826,7 +826,6 @@ body {
   height: 2rem;
 }
 .taskSubmitBtn {
-  background-color: rgb(170, 170, 170);
   height: 50px;
   width: 50px;
   border-radius: 50%;
@@ -834,6 +833,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .tasksCont {
   display: flex;
   justify-content: center;

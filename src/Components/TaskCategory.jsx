@@ -1,55 +1,16 @@
-import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRef, useEffect } from "react";
 
-function TaskCategory() {
-  const initialCategories = [
-    { id: 1, name: "All", img: "/images/meditation.png", isActive: true },
-    { id: 2, name: "work", img: "/images/work.png", isActive: false },
-    {
-      id: 3,
-      name: "personal",
-      img: "/images/sittingLady.png",
-      isActive: false,
-    },
-    { id: 4, name: "Birthday", img: "/images/birthday.png", isActive: false },
-    { id: 5, name: "Sports", img: "/images/sports.png", isActive: false },
-  ];
-
-  // const defaultCategories = [
-  //   { id: 1, name: "All", img: "/images/meditation.png", number: 0 },
-  // ];
-
-  // const [categories, setCategories] = useState(() => {
-  //   const stored = localStorage.getItem("categories");
-  //   if (stored) return JSON.parse(stored);
-
-  //   localStorage.setItem("categories", JSON.stringify(defaultCategories));
-  //   return defaultCategories;
-  // });
-
-  const [open, setOpen] = useState(false);
-  const [categories, setCategories] = useState(() => {
-    const stored = localStorage.getItem("categories");
-
-    if (stored) {
-      const parsed = JSON.parse(stored);
-
-      const hasAll = parsed.some((cat) => cat.name === "All");
-
-      if (!hasAll) {
-        parsed.unshift(initialCategories[0]);
-      }
-
-      return parsed;
-    }
-
-    localStorage.setItem("categories", JSON.stringify(initialCategories));
-    return initialCategories;
-  });
+function TaskCategory({
+  categories,
+  setCategories,
+  activeCategory,
+  setActiveCategory,
+}) {
+  const categoryRefs = useRef({});
 
   useEffect(() => {
     const handleCategoryChange = (e) => {
-      setActiveCategory(e.detail); // instant UI update
+      setActiveCategory(e.detail);
     };
 
     window.addEventListener("categoryChanged", handleCategoryChange);
@@ -60,32 +21,12 @@ function TaskCategory() {
   }, []);
 
   const savedName = localStorage.getItem("userName") || "Guest";
-  const [activeCategory, setActiveCategory] = useState(() => {
-    const savedActive = localStorage.getItem("activeCategory");
-    return savedActive ? Number(savedActive) : 1;
-  });
-  const currentCategory = categories.find((cat) => cat.id === activeCategory);
 
-  const menuRef = useRef(null);
-  const navigate = useNavigate();
-  function goManageCategory() {
-    navigate("/ManageCategories");
-    console.log("category page opened");
-  }
+  const currentCategory = categories.find((cat) => cat.id === activeCategory);
 
   useEffect(() => {
     localStorage.setItem("activeCategory", activeCategory);
   }, [activeCategory]);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -95,20 +36,29 @@ function TaskCategory() {
 
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
-
+  }, [setCategories]);
+  useEffect(() => {
+    const el = categoryRefs.current[activeCategory];
+    if (el) {
+      el.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+      });
+    }
+  }, [activeCategory]);
   return (
     <>
-      <div className="taskCategoryCont">
+      {/* <div className="taskCategoryCont">
         {categories.map((category) => (
           <div key={category.id}>
             <div
+              ref={(el) => (categoryRefs.current[category.id] = el)}
               onClick={() => {
                 setActiveCategory(category.id);
               }}
               className={`taskCont ${
                 activeCategory === category.id ? "active" : ""
-              }`}
+              } whitespace-nowrap overflow-hidden text-ellipsis`}
             >
               {category.name}
             </div>
@@ -116,7 +66,7 @@ function TaskCategory() {
         ))}
 
         <div style={{ minWidth: "3rem" }} />
-      </div>
+      </div> */}
 
       {currentCategory && (
         <div>
@@ -134,26 +84,6 @@ function TaskCategory() {
           </div>
         </div>
       )}
-      <div ref={menuRef}>
-        <div onClick={() => setOpen(!open)} className="taskNavImg">
-          <img src="/images/three-dots-grey.png" alt="" className="h-10" />
-        </div>
-
-        {open && (
-          <div className="absolute top-14   right-4  w-auto bg-white border  border-gray-200 rounded-lg shadow-lg z-10 ">
-            <ul className="py-1">
-              <li>
-                <button onClick={goManageCategory} className="dropDownIcon ">
-                  Manage Categories
-                </button>
-              </li>
-              <li>
-                <button className="dropDownIcon ">Upgrade to PRO</button>
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>
     </>
   );
 }

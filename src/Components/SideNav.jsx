@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import TaskInput from "./TaskInput";
 import CategoryDropdown from "./CategoryDropdown";
 
-function SideNav({ onClose, showSideNav, ontap }) {
-  const [showInput, setShowInput] = useState(false);
+function SideNav({ onClose, showSideNav, ontap, categories, setCategories }) {
+  const [showInput, setShowInput] = useState(null);
   const navigate = useNavigate();
   const savedName = localStorage.getItem("userName") || "Guest";
 
-  const [profilePic, setProfilePic] = useState("");
+  const [profilePic, setProfilePic] = useState(null);
 
   useEffect(() => {
     const savedPic = localStorage.getItem("profilePic");
@@ -124,7 +124,11 @@ function SideNav({ onClose, showSideNav, ontap }) {
               <div className="proText">PRO Version</div>
             </div>
 
-            <CategoryDropdown ontap={ontap} />
+            <CategoryDropdown
+              ontap={ontap}
+              categories={categories}
+              setCategories={setCategories}
+            />
             <div className="nav-hr"></div>
 
             <div className="navItem theme">
