@@ -3,7 +3,15 @@ import { useState, useEffect } from "react";
 import TaskInput from "./TaskInput";
 import CategoryDropdown from "./CategoryDropdown";
 
-function SideNav({ onClose, showSideNav, ontap, categories, setCategories }) {
+function SideNav({
+  onClose,
+  showSideNav,
+  ontap,
+  categories,
+  setCategories,
+  addTask,
+  activeCategory,
+}) {
   const [showInput, setShowInput] = useState(null);
   const navigate = useNavigate();
   const savedName = localStorage.getItem("userName") || "Guest";
@@ -156,7 +164,11 @@ function SideNav({ onClose, showSideNav, ontap, categories, setCategories }) {
       {showInput && (
         <div>
           <div onClick={HideInput} className="inputOverlay "></div>
-          <TaskInput />
+          <TaskInput
+            categories={categories}
+            addTask={addTask}
+            activeCategory={activeCategory}
+          />
         </div>
       )}
     </>

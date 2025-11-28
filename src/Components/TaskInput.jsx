@@ -17,8 +17,6 @@ const TaskInput = ({ categories, activeCategory, addTask }) => {
         <div className="inputCategory">
           {currentCategory ? currentCategory.name : "All"}
         </div>
-        {/* 
-        <img className="inputCalendar" src="/images/calendar-blue.png" alt="" /> */}
 
         <div
           onClick={() => {

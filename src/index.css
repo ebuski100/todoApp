@@ -640,8 +640,6 @@ body {
   color: grey;
   justify-content: center;
   align-items: center;
-
-  border: 1px solid blue;
 }
 
 .calTasksCont {
@@ -967,4 +965,9 @@ body {
   cursor: pointer;
 }
 
+/* OTHER */
+.repeatActive {
+  background-color: rgb(68, 68, 248);
+  color: white;
+}
 /* ANIMATIONS */

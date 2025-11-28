@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 
 function TaskCategory({
   categories,
@@ -6,8 +6,6 @@ function TaskCategory({
   activeCategory,
   setActiveCategory,
 }) {
-  const categoryRefs = useRef({});
-
   useEffect(() => {
     const handleCategoryChange = (e) => {
       setActiveCategory(e.detail);
@@ -37,37 +35,9 @@ function TaskCategory({
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);
   }, [setCategories]);
-  useEffect(() => {
-    const el = categoryRefs.current[activeCategory];
-    if (el) {
-      el.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-      });
-    }
-  }, [activeCategory]);
+
   return (
     <>
-      {/* <div className="taskCategoryCont">
-        {categories.map((category) => (
-          <div key={category.id}>
-            <div
-              ref={(el) => (categoryRefs.current[category.id] = el)}
-              onClick={() => {
-                setActiveCategory(category.id);
-              }}
-              className={`taskCont ${
-                activeCategory === category.id ? "active" : ""
-              } whitespace-nowrap overflow-hidden text-ellipsis`}
-            >
-              {category.name}
-            </div>
-          </div>
-        ))}
-
-        <div style={{ minWidth: "3rem" }} />
-      </div> */}
-
       {currentCategory && (
         <div>
           <div className="w-full p-2 flex flex-row  justify-between  ">

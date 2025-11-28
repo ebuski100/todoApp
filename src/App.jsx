@@ -15,6 +15,7 @@ import SoundSetting from "./pages/SoundSetting";
 import Donate from "./pages/Donate";
 
 import User from "./pages/User";
+import TaskPage from "./pages/TaskPage";
 
 // import LoadPage from "./pages/LoadPage";
 // import Theme from "./pages/Theme";
@@ -22,7 +23,7 @@ import User from "./pages/User";
 function App() {
   const DEFAULT_CATEGORIES = [
     {
-      id: 0,
+      id: 0.0,
       name: "All",
       img: "/images/personal.png",
       number: 0,
@@ -31,7 +32,7 @@ function App() {
     },
 
     {
-      id: 1,
+      id: 1.0,
       name: "Birthdays",
       img: "/images/birthday.png",
       number: 0,
@@ -39,7 +40,7 @@ function App() {
       isDefault: true,
     },
     {
-      id: 2,
+      id: 2.0,
       name: "Work",
       img: "/images/work.png",
       number: 0,
@@ -47,7 +48,7 @@ function App() {
       isDefault: true,
     },
     {
-      id: 3,
+      id: 3.0,
       name: "Personal",
       img: "/images/sittingLady.png",
       number: 0,
@@ -62,6 +63,7 @@ function App() {
       ? [...DEFAULT_CATEGORIES, ...saved]
       : DEFAULT_CATEGORIES;
   });
+  const [showInput, setShowInput] = useState(false);
 
   useEffect(() => {
     const storable = categories.filter(
@@ -70,6 +72,43 @@ function App() {
 
     localStorage.setItem("categories", JSON.stringify(storable));
   }, [categories]);
+  const [taskList, setTaskList] = useState(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : {};
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+  }, [taskList]);
+
+  const [activeCategory, setActiveCategory] = useState(() => {
+    const saved = localStorage.getItem("activeCategory");
+    const parsed = Number(saved);
+    return Number.isNaN(parsed) ? 0 : parsed;
+  });
+
+  const addTask = (taskText) => {
+    if (!taskText.trim()) return;
+
+    const newTask = {
+      id: Date.now(),
+      text: taskText.trim(),
+      completed: false,
+
+      createdAt: Date.now(),
+    };
+
+    const updatedTaskList = {
+      ...taskList,
+      [activeCategory]: taskList[activeCategory]
+        ? [newTask, ...taskList[activeCategory]]
+        : [newTask],
+    };
+
+    setTaskList(updatedTaskList);
+    localStorage.setItem("tasks", JSON.stringify(updatedTaskList));
+    setShowInput(false);
+  };
 
   return (
     <div className="app-container">
@@ -79,7 +118,17 @@ function App() {
         <Route
           path="/"
           element={
-            <Tasks categories={categories} setCategories={setCategories} />
+            <Tasks
+              categories={categories}
+              setCategories={setCategories}
+              activeCategory={activeCategory}
+              addTask={addTask}
+              setActiveCategory={setActiveCategory}
+              taskList={taskList}
+              showInput={showInput}
+              setShowInput={setShowInput}
+              setTaskList={setTaskList}
+            />
           }
         />
         <Route
@@ -91,14 +140,38 @@ function App() {
             />
           }
         />
-        <Route path="/Calendar" element={<Calendar />} />
+        <Route
+          path="/Calendar"
+          element={
+            <Calendar
+              categories={categories}
+              activeCategory={activeCategory}
+              addTask={addTask}
+              showInput={showInput}
+              setShowInput={setShowInput}
+              taskList={taskList}
+              setTaskList={setTaskList}
+            />
+          }
+        />
         <Route
           path="/Tasks"
           element={
-            <Tasks categories={categories} setCategories={setCategories} />
+            <Tasks
+              categories={categories}
+              setCategories={setCategories}
+              activeCategory={activeCategory}
+              addTask={addTask}
+              setActiveCategory={setActiveCategory}
+              taskList={taskList}
+              showInput={showInput}
+              setShowInput={setShowInput}
+              setTaskList={setTaskList}
+            />
           }
         />
         <Route path="/Settings" element={<Settings />} />
+        <Route path="/TaskPage" element={<TaskPage />} />
         <Route path="/Faq" element={<Faq />} />
         <Route path="/SoundSetting" element={<SoundSetting />} />
         <Route path="/donate" element={<Donate />} />

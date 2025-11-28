@@ -5,18 +5,26 @@ import TaskInput from "../Components/TaskInput";
 import Task from "../Components/Task";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import DeleteTask from "../Components/DeleteTask";
 
-function Tasks({ categories, setCategories }) {
-  const [showInput, setShowInput] = useState(false);
-  const [taskList, setTaskList] = useState([]);
+function Tasks({
+  categories,
+  setCategories,
+  activeCategory,
+  addTask,
+  setActiveCategory,
+  taskList,
+  showInput,
+  setShowInput,
+  setTaskList,
+}) {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
+
   const categoryRefs = useRef({});
   const menuRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(() => {
-    const saved = localStorage.getItem("activeCategory");
-    const parsed = Number(saved);
-    return Number.isNaN(parsed) ? 0 : parsed;
-  });
+
   const navigate = useNavigate();
   function goManageCategory() {
     navigate("/ManageCategories");
@@ -31,6 +39,36 @@ function Tasks({ categories, setCategories }) {
     setShowInput(false);
   }
 
+  function openDeleteModal(taskId) {
+    setTaskToDelete(taskId);
+    setShowDeleteModal(true);
+  }
+
+  function closeDeleteModal() {
+    setShowDeleteModal(false);
+    setTaskToDelete(null);
+  }
+
+  function goTaskPage() {
+    navigate("/TaskPage");
+  }
+
+  const deleteTask = (taskId) => {
+    setTaskList((prev) => {
+      const updated = { ...prev };
+
+      for (const category in updated) {
+        updated[category] = updated[category].filter(
+          (task) => task.id !== taskId
+        );
+      }
+
+      return updated;
+    });
+
+    closeDeleteModal();
+  };
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -41,46 +79,16 @@ function Tasks({ categories, setCategories }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // const addTask = (taskText) => {
-  //   if (!taskText.trim()) return;
-
-  //   const newTask = {
-  //     id: Date.now(),
-  //     text: taskText.trim(),
-  //     category: activeCategory,
-  //     completed: false,
-  //   };
-
-  //   setTaskList((prev) => [...prev, newTask]);
-  //   setShowInput(false);
-  // };
-  // const tasksForActiveCategory = taskList.filter(
-  //   (task) => task.category === activeCategory
-  // );
-
-  const addTask = (taskText) => {
-    if (!taskText.trim()) return;
-
-    const newTask = {
-      id: Date.now(),
-      text: taskText.trim(),
-      completed: false,
-    };
-
-    // Update tasks for current category
-    const updatedTaskList = {
-      ...taskList,
-      [activeCategory]: taskList[activeCategory]
-        ? [...taskList[activeCategory], newTask]
-        : [newTask],
-    };
-
-    setTaskList(updatedTaskList);
-    localStorage.setItem("tasks", JSON.stringify(updatedTaskList)); // persist
-    setShowInput(false);
-  };
-
   const tasksForActiveCategory = taskList[activeCategory] || [];
+  useEffect(() => {
+    const el = categoryRefs.current[activeCategory];
+    if (el) {
+      el.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+      });
+    }
+  }, [activeCategory]);
 
   return (
     <div className="tasksCont">
@@ -135,6 +143,8 @@ function Tasks({ categories, setCategories }) {
         <Task
           taskList={tasksForActiveCategory}
           activeCategory={activeCategory}
+          openDeleteModal={openDeleteModal}
+          goTaskPage={goTaskPage}
         />
       )}
 
@@ -149,8 +159,21 @@ function Tasks({ categories, setCategories }) {
         </div>
       )}
 
+      {showDeleteModal && (
+        <DeleteTask
+          closeDeleteModal={closeDeleteModal}
+          onConfirm={() => deleteTask(taskToDelete)}
+          onCancel={closeDeleteModal}
+        />
+      )}
+
       <AddTask onClick={ShowInput} />
-      <FootNav categories={categories} setCategories={setCategories} />
+      <FootNav
+        categories={categories}
+        setCategories={setCategories}
+        addTask={addTask}
+        activeCategory={activeCategory}
+      />
     </div>
   );
 }
