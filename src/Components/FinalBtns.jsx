@@ -2,6 +2,7 @@ const FinalBtns = ({ onSave, onCancel, cancelText, confirmText }) => {
   return (
     <div className="flex flex-row p-3 justify-end">
       <div
+        id="cancel"
         onClick={onCancel}
         className="cursor-pointer text-blue-500/50 font-bold mr-4"
       >

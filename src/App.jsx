@@ -64,6 +64,16 @@ function App() {
       : DEFAULT_CATEGORIES;
   });
   const [showInput, setShowInput] = useState(false);
+  const [activeTask, setActiveTask] = useState(null);
+
+  // const [completedTasks, setCompletedTasks] = useState(() => {
+  //   const saved = localStorage.getItem("completedTasks");
+  //   return saved ? JSON.parse(saved) : [];
+  // });
+
+  // useEffect(() => {
+  //   localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
+  // }, [completedTasks]);
 
   useEffect(() => {
     const storable = categories.filter(
@@ -87,6 +97,19 @@ function App() {
     return Number.isNaN(parsed) ? 0 : parsed;
   });
 
+  function updateTaskInList(id, newText) {
+    setTaskList((prev) => {
+      const updatedCategoryTasks = prev[activeCategory].map((task) =>
+        task.id === id ? { ...task, text: newText } : task
+      );
+
+      return {
+        ...prev,
+        [activeCategory]: updatedCategoryTasks,
+      };
+    });
+  }
+
   const addTask = (taskText) => {
     if (!taskText.trim()) return;
 
@@ -94,7 +117,7 @@ function App() {
       id: Date.now(),
       text: taskText.trim(),
       completed: false,
-
+      categoryId: activeCategory,
       createdAt: Date.now(),
     };
 
@@ -113,7 +136,12 @@ function App() {
   return (
     <div className="app-container">
       <Routes>
-        <Route path="/completed" element={<Completed />} />
+        <Route
+          path="/completed"
+          element={
+            <Completed activeCategory={activeCategory} taskList={taskList} />
+          }
+        />
         <Route path="/d" element={<CompletedLink />} />
         <Route
           path="/"
@@ -125,9 +153,13 @@ function App() {
               addTask={addTask}
               setActiveCategory={setActiveCategory}
               taskList={taskList}
+              // completedTasks={completedTasks}
+              // setCompletedTasks={setCompletedTasks}
               showInput={showInput}
               setShowInput={setShowInput}
               setTaskList={setTaskList}
+              activeTask={activeTask}
+              setActiveTask={setActiveTask}
             />
           }
         />
@@ -165,13 +197,30 @@ function App() {
               setActiveCategory={setActiveCategory}
               taskList={taskList}
               showInput={showInput}
+              // completedTasks={completedTasks}
+              // setCompletedTasks={setCompletedTasks}
               setShowInput={setShowInput}
               setTaskList={setTaskList}
+              activeTask={activeTask}
+              setActiveTask={setActiveTask}
             />
           }
         />
         <Route path="/Settings" element={<Settings />} />
-        <Route path="/TaskPage" element={<TaskPage />} />
+        <Route
+          path="/TaskPage"
+          element={
+            <TaskPage
+              activeCategory={activeCategory}
+              categories={categories}
+              taskList={taskList}
+              setTaskList={setTaskList}
+              activeTask={activeTask}
+              setActiveTask={setActiveTask}
+              updateTaskInList={updateTaskInList}
+            />
+          }
+        />
         <Route path="/Faq" element={<Faq />} />
         <Route path="/SoundSetting" element={<SoundSetting />} />
         <Route path="/donate" element={<Donate />} />

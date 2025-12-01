@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-function CompletedLink() {
+function CompletedLink({ activeCategory }) {
   const navigate = useNavigate();
   function goToCompleted() {
-    navigate("/completed");
+    navigate("/completed", { state: { activeCategory } });
   }
 
   return (

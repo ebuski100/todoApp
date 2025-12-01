@@ -1,92 +1,316 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Goback from "./Goback";
 import FinalBtns from "../Components/FinalBtns";
 import StyledTimePicker from "../Components/StyledTimePicker";
+import DeleteTask from "../Components/DeleteTask";
+import { useNavigate } from "react-router-dom";
+// import Task from "../Components/Task";
 
-const TaskPage = ({ onSave }) => {
+const TaskPage = ({
+  categories,
+
+  activeCategory,
+  setTaskList,
+
+  activeTask,
+  setActiveTask,
+  updateTaskInList,
+}) => {
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
+  const [toast, setToast] = useState(null);
+  const [notes, setNotes] = useState(() => {
+    return localStorage.getItem("task-notes") || "";
+  });
   const [showRepeat, setShowRepeat] = useState(false);
-
-  const repeatOpts = ["None", "Daily", "Weekly", "Monthly", "Yearly"];
+  const currentCategory = categories.find((cat) => cat.id === activeCategory);
+  const repeatOptions = ["None", "Daily", "Weekly", "Monthly", "Yearly"];
 
   const [activeRepeat, setActiveRepeat] = useState("None");
   const [showTime, setShowTime] = useState(false);
-  const [taskTime, setTaskTime] = useState("");
+  const [taskTime, setTaskTime] = useState(() => {
+    return localStorage.getItem("task-time") || "";
+  });
 
-  function onCancel() {
-    setShowRepeat(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
+
+  const [repeatOpts, setRepeatOpt] = useState(() => {
+    return localStorage.getItem("repeat-opt") || "";
+  });
+  const [tempRepeat, setTempRepeat] = useState("");
+
+  const [tempTime, setTempTime] = useState("");
+
+  const textAreaRef = useRef(null);
+
+  const menuRef = useRef(null);
+  const showToast = (message) => {
+    setToast(message);
+
+    setTimeout(() => {
+      setToast(null);
+      //   navigate("/Tasks");
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (textAreaRef.current) {
+      const len = textAreaRef.current.value.length;
+      textAreaRef.current.setSelectionRange(len, len);
+      textAreaRef.current.focus();
+    }
+  }, []);
+
+  function openTimeModal() {
+    setTempTime(taskTime);
+    setShowTime(true);
   }
+
+  function goTask() {
+    navigate("/Tasks");
+  }
+  function updateTaskText(newText) {
+    activeTask.text = newText;
+
+    localStorage.setItem("task-" + activeTask.id, newText);
+
+    if (typeof updateTaskInList === "function") {
+      updateTaskInList(activeTask.id, newText);
+    }
+  }
+
+  function onSave(action) {
+    if (action === "saveTime") {
+      setTaskTime(tempTime);
+      setShowTime(false);
+      localStorage.setItem("task-time", tempTime);
+    }
+    if (action === "saveRepeat") {
+      setRepeatOpt(tempRepeat);
+      localStorage.setItem("repeat-opt", tempRepeat);
+      setShowRepeat(false);
+    }
+    if (action === "saveNotes") {
+      localStorage.setItem("task-notes", notes);
+      setShowNotes(false);
+    }
+  }
+
+  function onCancel(action) {
+    if (action === "closeRepeat") {
+      setTempRepeat("");
+      setShowRepeat(false);
+    }
+    if (action === "closeTime") {
+      setTempTime("");
+      setShowTime(false);
+    }
+  }
+
+  const markTaskDone = (taskId) => {
+    setTaskList((prev) => {
+      const updated = { ...prev };
+
+      for (const category in updated) {
+        updated[category] = updated[category].map((task) =>
+          task.id === taskId
+            ? {
+                ...task,
+                completed: true,
+                completedAt: new Date().toISOString(),
+              }
+            : task
+        );
+      }
+
+      localStorage.setItem("tasks", JSON.stringify(updated));
+      return updated;
+    });
+
+    setActiveTask((prev) =>
+      prev && prev.id === taskId
+        ? { ...prev, completed: true, completedAt: new Date().toISOString() }
+        : prev
+    );
+    showToast("Task marked as done!");
+  };
+
+  useEffect(() => {
+    if (!activeTask) {
+      const saved = localStorage.getItem("activeTask");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+
+        updateTaskInList(parsed.id, parsed.text);
+        setActiveTask(parsed);
+      }
+    }
+  }, [activeTask, setActiveTask]);
+
+  function formatTime(time) {
+    if (!time) return "";
+
+    const [hour, minute] = time.split(":");
+    const h = parseInt(hour);
+    const suffix = h >= 12 ? "PM" : "AM";
+    const formattedHour = ((h + 11) % 12) + 1;
+
+    return `${formattedHour}:${minute} ${suffix}`;
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  function openDeleteModal(taskId) {
+    setTaskToDelete(taskId);
+    setShowDeleteModal(true);
+  }
+
+  function closeDeleteModal() {
+    setShowDeleteModal(false);
+    setTaskToDelete(null);
+  }
+
+  const deleteTask = (taskId) => {
+    setTaskList((prev) => {
+      const updated = { ...prev };
+
+      for (const category in updated) {
+        updated[category] = updated[category].filter(
+          (task) => task.id !== taskId
+        );
+      }
+
+      return updated;
+    });
+
+    closeDeleteModal();
+    goTask();
+  };
+
   return (
     <div className="p-3">
       <div className="flex flex-row justify-between items-center bg-white   sticky top-0 left-0">
         <Goback />
-        <img
-          src="/images/three-dots-grey.png"
-          className="h-6 cursor-pointer"
-          alt=""
-        />
+
+        <div ref={menuRef}>
+          <div onClick={() => setOpen(!open)}>
+            <img
+              src="/images/three-dots-grey.png"
+              className="h-6 cursor-pointer"
+              alt=""
+            />
+          </div>
+
+          {open && (
+            <div className="absolute top-14   right-4  w-auto bg-white border  border-gray-200 rounded-lg shadow-lg z-10 ">
+              <ul className="py-1">
+                <li onClick={() => markTaskDone(activeTask.id)}>
+                  <button className="dropDownIcon ">Mark as Read</button>
+                </li>
+                <li onClick={() => openDeleteModal(activeTask.id)}>
+                  <button className="dropDownIcon ">Delete </button>
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
 
-      <div className=" bg-gray-200 rounded-2xl py-1 px-4 text-gray-800 my-4   text-center w-fit">
-        hello
-      </div>
-
-      <div className="font-bold text-[20px] mb-3">All item</div>
-
-      <div className="flex flex-col ">
-        <hr className="border-t-[1px] border-gray-500 my-1" />
-        <div className="flex flex-row justify-between items-center px-2 py-4 border-b border-gray-600 ">
-          <div className="flex flex-row items-center">
-            <img className="mr-4 h-10" src="/images/task-calendar.png" alt="" />
-            <div>Due Date</div>
-          </div>
-
-          <div className="date bg-gray-200 text-gray-600  rounded-2xl py-2 px-3 ">
-            11/11/2025
-          </div>
+      <div className={`${activeTask?.completed ? "completed-task" : ""}`}>
+        <div className=" bg-gray-200 rounded-2xl py-1 px-4 text-gray-800 my-4   text-center w-fit">
+          {currentCategory.name}
         </div>
-        <div className="flex flex-row justify-between items-center px-2 py-4 border-b border-gray-600 ">
+
+        {activeTask && (
+          <textarea
+            ref={textAreaRef}
+            className="text-lg w-full font-bold text-gray-800 m-2  break-words whitespace-normal p-2    outline-none"
+            autoFocus
+            value={activeTask.text}
+            onChange={(e) => updateTaskText(e.target.value)}
+          />
+        )}
+
+        <div className="flex flex-col ">
+          <hr className="border-t-[1px] border-gray-500 my-1" />
+          <div className="flex flex-row justify-between items-center px-2 py-4 border-b border-gray-600 ">
+            <div className="flex flex-row items-center">
+              <img
+                className="mr-4 h-10"
+                src="/images/task-calendar.png"
+                alt=""
+              />
+              <div>Due Date</div>
+            </div>
+
+            <div className="date bg-gray-200 text-gray-600  rounded-2xl py-2 px-3 ">
+              11/11/2025
+            </div>
+          </div>
+          <div className="flex flex-row justify-between items-center px-2 py-4 border-b border-gray-600 ">
+            <div onClick={openTimeModal} className="flex flex-row items-center">
+              <img className="mr-4 h-10" src="/images/time.png" alt="" />
+              <div>Task & Reminder</div>
+            </div>
+
+            <div className="bg-gray-200 text-gray-600  rounded-2xl py-2 px-4">
+              {taskTime ? formatTime(taskTime) : "No Time"}
+            </div>
+          </div>
+          <div className="flex flex-row justify-between items-center px-2 py-4 border-b border-gray-600 ">
+            <div
+              onClick={() => setShowRepeat(true)}
+              className="flex flex-row items-center"
+            >
+              <img className="mr-4 h-10" src="/images/repeat.png" alt="" />
+              <div>Repeat Task</div>
+            </div>
+
+            <div className="bg-gray-200 text-gray-600  rounded-2xl py-2 px-4">
+              {repeatOpts || "None"}
+            </div>
+          </div>
+
           <div
-            onClick={() => setShowTime(true)}
-            className="flex flex-row items-center"
+            onClick={() => setShowNotes(true)}
+            className="flex flex-row justify-between items-center py-4 border-b border-gray-600 px-2  "
           >
-            <img className="mr-4 h-10" src="/images/time.png" alt="" />
-            <div>Task & Reminder</div>
-          </div>
+            <div className="flex flex-row items-center">
+              <img
+                className="mr-4 h-10"
+                src="/images/feedback-grey.png"
+                alt=""
+              />
+              <div>
+                <div>Notes</div>
+                <div className="p-1 text-sm text-gray-600 w-[200px]  break-words whitespace-normal">
+                  {notes
+                    ? notes.substring(0, 30) + (notes.length > 30 ? "..." : "")
+                    : ""}
+                </div>
+              </div>
+            </div>
 
-          <div className="bg-gray-200 text-gray-600  rounded-2xl py-2 px-4">
-            {taskTime || "No Time"}
+            <div className="date">
+              {notes && notes.trim() !== "" ? "EDIT" : "ADD"}
+            </div>
           </div>
-        </div>
-        <div className="flex flex-row justify-between items-center px-2 py-4 border-b border-gray-600 ">
-          <div
-            onClick={() => setShowRepeat(true)}
-            className="flex flex-row items-center"
-          >
-            <img className="mr-4 h-10" src="/images/repeat.png" alt="" />
-            <div>Repeat Task</div>
-          </div>
-
-          <div className="bg-gray-200 text-gray-600  rounded-2xl py-2 px-4">
-            No
-          </div>
-        </div>
-        <div
-          onClick={() => setShowNotes(true)}
-          className="flex flex-row justify-between items-center px-2 py-4 border-b border-gray-600 "
-        >
-          <div className="flex flex-row items-center">
-            <img className="mr-4 h-10" src="/images/feedback-grey.png" alt="" />
-            <div>Notes</div>
-          </div>
-
-          <div className="date">ADD</div>
         </div>
       </div>
 
       {showRepeat && (
         <div
-          onClick={onCancel}
+          onClick={() => onCancel("closeRepeat")}
           className="fixed top-0 left-0 bottom-0 right-0 bg-black/50 flex justify-center items-center "
         >
           <div
@@ -96,25 +320,13 @@ const TaskPage = ({ onSave }) => {
             <h1 className="font-bold mb-3">Set as Repeat Task</h1>
 
             <div className="flex flex-row items-center   overflow-x-auto ">
-              {/* <div className="bg-gray-200 text-gray-600 px-4 py-2 rounded m-2">
-                None
-              </div>
-              <div className="bg-gray-200 text-gray-600 px-4 py-2 rounded m-2">
-                Daily
-              </div>
-              <div className="bg-gray-200 text-gray-600 px-4 py-2 rounded m-2">
-                Weekly
-              </div>
-              <div className="bg-gray-200 text-gray-600 px-4 py-2 rounded m-2">
-                Monthly
-              </div>
-              <div className="bg-gray-200 text-gray-600 px-4 py-2 rounded m-2">
-                Yearly
-              </div> */}
-              {repeatOpts.map((repeatOpt, index) => (
+              {repeatOptions.map((repeatOpt, index) => (
                 <div key={index}>
                   <div
-                    onClick={() => setActiveRepeat(index)}
+                    onClick={() => {
+                      setActiveRepeat(index);
+                      setTempRepeat(repeatOptions[index]);
+                    }}
                     className={`bg-gray-200 text-gray-600 px-4 py-2 rounded m-2 ${
                       activeRepeat === index ? "repeatActive" : ""
                     }`}
@@ -125,8 +337,8 @@ const TaskPage = ({ onSave }) => {
               ))}
             </div>
             <FinalBtns
-              onSave={onSave}
-              onCancel={onCancel}
+              onSave={() => onSave("saveRepeat")}
+              onCancel={() => onCancel("closeRepeat")}
               confirmText="DONE"
               cancelText="CANCEL"
             />
@@ -136,45 +348,70 @@ const TaskPage = ({ onSave }) => {
       {showNotes && (
         <div className="fixed top-0 left-0 bottom-0 right-0 z-100 ">
           <div className="bg-white w-full h-full p-3">
-            <button onClick={() => setShowNotes(false)} className="my-2">
+            <button onClick={() => onSave("saveNotes")} className="my-2">
               <img className="h-6" src="/images/back arrow.png" alt="" />
             </button>
-
-            <div className="font-bold text-[20px] mb-3">All item</div>
+            <div className="flex flex-row items-center  justify-between">
+              <div className="font-bold text-[20px] my-3">All item</div>
+              <p className="text-sm text-gray-500 text-end">
+                {notes.length}/200
+              </p>
+            </div>
             <textarea
               rows="6
           "
               autoFocus
               className=" w-full  border-none outline-none"
               placeholder="Add Notes "
+              value={notes}
+              onChange={(e) => {
+                if (e.target.value.length <= 200) {
+                  setNotes(e.target.value);
+                }
+              }}
             ></textarea>
           </div>
         </div>
       )}
 
+      {showDeleteModal && (
+        <DeleteTask
+          DeleteHeader="Delete task?"
+          closeDeleteModal={closeDeleteModal}
+          onConfirm={() => deleteTask(taskToDelete)}
+          onCancel={closeDeleteModal}
+        />
+      )}
+
+      {toast && (
+        <div className="fixed bottom-8 right-[30%] bg-black/50 text-white px-4 py-2 rounded shadow-lg transition-all">
+          {toast}
+        </div>
+      )}
+
       {showTime && (
-        <div className="timeModal fixed top-0 left-0 bottom-0 right-0 bg-black/50 flex justify-center items-center">
-          <div className="timeModalCont w-[80%] bg-white rounded-2xl p-3 ">
+        <div className="timeModal fixed top-0 left-0 bottom-0 right-0 bg-black/80 flex justify-center items-center">
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="timeModalCont w-[80%] bg-white rounded-2xl p-3 "
+          >
             <div className="font-bold text-gray-700 text-[20px]">Set Time</div>
 
             <div className="flex flex-col   ">
               <div className="flex justify-start my-4 ">
-                {/* <input
-                  type="time"
-                  value={taskTime}
-                  onChange={(e) => setTaskTime(e.target.value)}
-                  className="bg-gray-200 text-gray-700 rounded-[8px] py-2 px-4 outline-none"
-                /> */}
-
                 <StyledTimePicker
-                  taskTime={taskTime}
-                  setTaskTime={setTaskTime}
+                  taskTime={tempTime}
+                  setTaskTime={setTempTime}
+                  formatTime={formatTime}
                 />
               </div>
             </div>
             <FinalBtns
-              onSave={onSave}
-              onCancel={onCancel}
+              onSave={() => onSave("saveTime")}
+              onCancel={() => {
+                setTempTime(taskTime);
+                onCancel("closeTime");
+              }}
               confirmText="DONE"
               cancelText="CANCEL"
             />

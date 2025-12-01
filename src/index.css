@@ -493,7 +493,7 @@ body {
   justify-content: center;
   align-items: center;
 
-  padding-bottom: 10rem;
+  /* padding-bottom: 10rem; */
 }
 .taskImgCont img {
   margin-bottom: 1rem;
@@ -574,13 +574,17 @@ body {
 
 .completedHeader {
   /* border: 1px solid blue; */
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: #fff;
 
   padding: 1rem;
   display: flex;
-  justify-content: end;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .completedTime {
-  padding: 1rem;
   font-weight: bold;
   font-size: 1.2rem;
   color: rgb(115, 115, 248);
@@ -970,4 +974,12 @@ body {
   background-color: rgb(68, 68, 248);
   color: white;
 }
+
+.completed-task {
+  opacity: 0.55;
+  filter: grayscale(100%);
+  text-decoration: line-through;
+  transition: 0.2s ease;
+}
+
 /* ANIMATIONS */

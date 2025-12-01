@@ -39,8 +39,8 @@ function TaskCategory({
   return (
     <>
       {currentCategory && (
-        <div>
-          <div className="w-full p-2 flex flex-row  justify-between  ">
+        <div className="">
+          <div className=" w-full p-2 flex flex-row  justify-between  ">
             <div className=" text-center  font-bold text-blue-500 text-[20px] w-full">
               Welcome {savedName}
             </div>
@@ -48,8 +48,8 @@ function TaskCategory({
           <div className="taskImgCont ">
             <img src={currentCategory.img} alt="" className=" w-full my-10" />
             <div className="taskImgtext">
-              No task in {currentCategory.name}. <br />
-              Click + to create your task
+              No active tasks in {currentCategory.name}. <br />
+              Click + to add your task
             </div>
           </div>
         </div>

@@ -1,31 +1,29 @@
 import React, { useRef } from "react";
 
-const StyledTimePicker = ({ taskTime, setTaskTime }) => {
+const StyledTimePicker = ({ taskTime, setTaskTime, formatTime }) => {
   const timeInputRef = useRef(null);
 
   const openPicker = () => {
     if (timeInputRef.current?.showPicker) {
-      timeInputRef.current.showPicker(); // Modern browsers
+      timeInputRef.current.showPicker();
     } else {
-      timeInputRef.current.click(); // Fallback
+      timeInputRef.current.click();
     }
   };
 
   return (
     <div className="relative">
-      {/* Custom UI */}
       <div
         onClick={openPicker}
-        className="flex items-center justify-between bg-gray-200 rounded-2xl py-2 px-5 cursor-pointer shadow-sm active:scale-95 transition w-40"
+        className="flex items-center justify-between bg-gray-200 rounded-[8px] py-2 px-5 cursor-pointer shadow-sm active:scale-95 transition w-40"
       >
         <span className="text-gray-700 mr-4 font-semibold text-lg">
           {taskTime ? formatTime(taskTime) : "Set Time"}
         </span>
 
-        <img src="/images/time.png" alt="clock" className="h-6 opacity-70" />
+        <img src="/images/time.png" alt="clock" className="h-6 opacity-80" />
       </div>
 
-      {/* Hidden Native Time Input */}
       <input
         ref={timeInputRef}
         type="time"
@@ -36,14 +34,5 @@ const StyledTimePicker = ({ taskTime, setTaskTime }) => {
     </div>
   );
 };
-
-// Helper to make 13:00 -> 1:00 PM
-function formatTime(time) {
-  const [hour, minute] = time.split(":");
-  const h = parseInt(hour);
-  const suffix = h >= 12 ? "PM" : "AM";
-  const formattedHour = ((h + 11) % 12) + 1;
-  return `${formattedHour}:${minute} ${suffix}`;
-}
 
 export default StyledTimePicker;
