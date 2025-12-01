@@ -235,7 +235,6 @@ const TaskPage = ({
           <textarea
             ref={textAreaRef}
             className="text-lg w-full font-bold text-gray-800 m-2  break-words whitespace-normal p-2    outline-none"
-            autoFocus
             value={activeTask.text}
             onChange={(e) => updateTaskText(e.target.value)}
           />

@@ -204,6 +204,7 @@ import Task from "../Components/Task";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DeleteTask from "../Components/DeleteTask";
+import CompletedLink from "../Components/CompletedLink";
 
 function Tasks({
   categories,
@@ -269,6 +270,9 @@ function Tasks({
     });
     closeDeleteModal();
   };
+  const completedForActiveCategory = (taskList[activeCategory] || []).filter(
+    (task) => task.completed
+  );
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -343,18 +347,17 @@ function Tasks({
             setActiveCategory={setActiveCategory}
           />
         ) : (
-          activeTasks.map((task) => (
-            <div>
-              <h2 className="font-bold text-lg mb-2 ml-4">Active </h2>
-
+          <div>
+            <h2 className="font-bold text-lg mb-2 ml-4">Active </h2>{" "}
+            {activeTasks.map((task) => (
               <Task
                 key={task.id}
                 taskList={[task]}
                 goTaskPage={() => goTaskPage(task)}
                 openDeleteModal={() => openDeleteModal(task.id)}
               />
-            </div>
-          ))
+            ))}
+          </div>
         )}
       </div>
 
@@ -370,6 +373,9 @@ function Tasks({
               openDeleteModal={() => openDeleteModal(task.id)}
             />
           ))}
+          {completedForActiveCategory.length > 0 && (
+            <CompletedLink activeCategory={activeCategory} />
+          )}
         </div>
       )}
 
