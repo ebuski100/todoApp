@@ -110,6 +110,8 @@ const TaskPage = ({
   }
 
   const markTaskDone = (taskId) => {
+    let taskWasCompleted = activeTask?.completed;
+
     setTaskList((prev) => {
       const updated = { ...prev };
 
@@ -118,8 +120,8 @@ const TaskPage = ({
           task.id === taskId
             ? {
                 ...task,
-                completed: true,
-                completedAt: new Date().toISOString(),
+                completed: !task.completed,
+                completedAt: !task.completed ? new Date().toISOString() : null,
               }
             : task
         );
@@ -131,10 +133,18 @@ const TaskPage = ({
 
     setActiveTask((prev) =>
       prev && prev.id === taskId
-        ? { ...prev, completed: true, completedAt: new Date().toISOString() }
+        ? {
+            ...prev,
+            completed: !prev.completed,
+            completedAt: !prev.completed ? new Date().toISOString() : null,
+          }
         : prev
     );
-    showToast("Task marked as done!");
+    setOpen(false);
+
+    showToast(
+      taskWasCompleted ? "Task marked as undone!" : "Task marked as done!"
+    );
   };
 
   useEffect(() => {
@@ -215,7 +225,9 @@ const TaskPage = ({
             <div className="absolute top-14   right-4  w-auto bg-white border  border-gray-200 rounded-lg shadow-lg z-10 ">
               <ul className="py-1">
                 <li onClick={() => markTaskDone(activeTask.id)}>
-                  <button className="dropDownIcon ">Mark as Read</button>
+                  <button className="dropDownIcon ">
+                    {activeTask?.completed ? "Mark as Undone" : "Mark as Done"}
+                  </button>
                 </li>
                 <li onClick={() => openDeleteModal(activeTask.id)}>
                   <button className="dropDownIcon ">Delete </button>

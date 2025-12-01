@@ -39,12 +39,11 @@ function TaskCategory({
   return (
     <>
       {currentCategory && (
-        <div className="">
-          <div className=" w-full p-2 flex flex-row  justify-between  ">
-            <div className=" text-center h-[50%]  font-bold text-blue-500 text-[20px] w-full">
-              Welcome {savedName}
-            </div>
+        <div>
+          <div className=" text-center    font-bold text-blue-500 text-[20px] w-full">
+            Welcome {savedName}
           </div>
+
           <div className="taskImgCont ">
             <img src={currentCategory.img} alt="" className=" w-full my-6 " />
             <div className="taskImgtext">

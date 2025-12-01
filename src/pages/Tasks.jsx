@@ -339,7 +339,7 @@ function Tasks({
 
       {/* Active Tasks */}
       <div className="w-full flex-1 overflow-y-auto pb-[7rem]">
-        <div className="activeTasksContainer mb-2 w-full ">
+        <div className="activeTasksContainer mb-2 w-full p-2 ">
           {activeTasks.length === 0 ? (
             <TaskCategory
               categories={categories}
@@ -349,7 +349,7 @@ function Tasks({
             />
           ) : (
             <div>
-              <h2 className="font-bold text-lg m-4">Active </h2>{" "}
+              <h2 className="font-bold text-lg m-2">Active </h2>{" "}
               {activeTasks.map((task) => (
                 <Task
                   key={task.id}
@@ -365,7 +365,7 @@ function Tasks({
         {/* Completed Tasks */}
         {completedTasks.length > 0 && (
           <div className="completedTasksContainer w-full p-2 ">
-            <h2 className="font-bold text-lg m-4">Completed </h2>
+            <h2 className="font-bold text-lg m-2">Completed </h2>
             {completedTasks.map((task) => (
               <Task
                 key={task.id}
