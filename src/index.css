@@ -496,9 +496,7 @@ body {
   /* padding-bottom: 10rem; */
 }
 .taskImgCont img {
-  margin-bottom: 0.7rem;
-
-  height: 256px;
+  margin-bottom: 2rem;
 }
 
 /* THEME */
@@ -654,9 +652,10 @@ body {
 /* COMPLETED LINK STYLES */
 
 .completedLink {
-  height: 100px;
   color: grey;
+
   display: flex;
+  padding: 0.5rem;
   justify-content: center;
   align-items: center;
   text-decoration: underline dotted grey;
@@ -979,7 +978,7 @@ body {
 .completed-task {
   opacity: 0.55;
   filter: grayscale(100%);
-  text-decoration: line-through;
+  /* text-decoration: line-through; */
   transition: 0.2s ease;
 }
 

@@ -297,9 +297,9 @@ function Tasks({
   const completedTasks = allTasks.filter((task) => task.completed);
 
   return (
-    <div className="tasksCont">
+    <div className="tasksCont flex flex-col h-screen">
       {/* Category selector */}
-      <div className="taskCategoryCont">
+      <div className="taskCategoryCont ">
         {categories.map((category) => (
           <div key={category.id}>
             <div
@@ -338,18 +338,35 @@ function Tasks({
       </div>
 
       {/* Active Tasks */}
-      <div className="activeTasksContainer mb-2 w-full">
-        {activeTasks.length === 0 ? (
-          <TaskCategory
-            categories={categories}
-            setCategories={setCategories}
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-          />
-        ) : (
-          <div>
-            <h2 className="font-bold text-lg mb-2 ml-4">Active </h2>{" "}
-            {activeTasks.map((task) => (
+      <div className="w-full flex-1 overflow-y-auto pb-[7rem]">
+        <div className="activeTasksContainer mb-2 w-full ">
+          {activeTasks.length === 0 ? (
+            <TaskCategory
+              categories={categories}
+              setCategories={setCategories}
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+            />
+          ) : (
+            <div>
+              <h2 className="font-bold text-lg m-4">Active </h2>{" "}
+              {activeTasks.map((task) => (
+                <Task
+                  key={task.id}
+                  taskList={[task]}
+                  goTaskPage={() => goTaskPage(task)}
+                  openDeleteModal={() => openDeleteModal(task.id)}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Completed Tasks */}
+        {completedTasks.length > 0 && (
+          <div className="completedTasksContainer w-full p-2 ">
+            <h2 className="font-bold text-lg m-4">Completed </h2>
+            {completedTasks.map((task) => (
               <Task
                 key={task.id}
                 taskList={[task]}
@@ -357,27 +374,12 @@ function Tasks({
                 openDeleteModal={() => openDeleteModal(task.id)}
               />
             ))}
+            {completedForActiveCategory.length > 0 && (
+              <CompletedLink activeCategory={activeCategory} />
+            )}
           </div>
         )}
       </div>
-
-      {/* Completed Tasks */}
-      {completedTasks.length > 0 && (
-        <div className="completedTasksContainer w-full p-2">
-          <h2 className="font-bold text-lg ml-4 mb-2">Completed </h2>
-          {completedTasks.map((task) => (
-            <Task
-              key={task.id}
-              taskList={[task]}
-              goTaskPage={() => goTaskPage(task)}
-              openDeleteModal={() => openDeleteModal(task.id)}
-            />
-          ))}
-          {completedForActiveCategory.length > 0 && (
-            <CompletedLink activeCategory={activeCategory} />
-          )}
-        </div>
-      )}
 
       {/* Task Input */}
       {showInput && (

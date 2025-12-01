@@ -46,11 +46,7 @@ function TaskCategory({
             </div>
           </div>
           <div className="taskImgCont ">
-            <img
-              src={currentCategory.img}
-              alt=""
-              className=" w-full my-2 h-[30px]"
-            />
+            <img src={currentCategory.img} alt="" className=" w-full my-6 " />
             <div className="taskImgtext">
               No active tasks in {currentCategory.name}. <br />
               Click + to add your task

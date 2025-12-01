@@ -226,18 +226,31 @@ const TaskPage = ({
         </div>
       </div>
 
-      <div className={`${activeTask?.completed ? "completed-task" : ""}`}>
+      <div
+        className={`${
+          activeTask?.completed
+            ? "completed-task pointer-events-none opacity-50"
+            : ""
+        }`}
+      >
         <div className=" bg-gray-200 rounded-2xl py-1 px-4 text-gray-800 my-4   text-center w-fit">
           {currentCategory.name}
         </div>
 
         {activeTask && (
-          <textarea
-            ref={textAreaRef}
-            className="text-lg w-full font-bold text-gray-800 m-2  break-words whitespace-normal p-2    outline-none"
-            value={activeTask.text}
-            onChange={(e) => updateTaskText(e.target.value)}
-          />
+          <div className="taskTextContainer my-2">
+            <textarea
+              ref={textAreaRef}
+              className={`text-lg w-full font-bold m-2 break-words whitespace-normal p-2 outline-none ${
+                activeTask?.completed
+                  ? "line-through text-gray-400"
+                  : "text-gray-800"
+              }`}
+              value={activeTask.text}
+              onChange={(e) => updateTaskText(e.target.value)}
+              readOnly={activeTask?.completed}
+            />
+          </div>
         )}
 
         <div className="flex flex-col ">
