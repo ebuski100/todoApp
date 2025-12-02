@@ -52,7 +52,8 @@ const Alarmchoice = ({ list, tempValue, setTempValue, onSave }) => {
 
   const handleSave = () => {
     stopAudio();
-    if (typeof onSave === "function") onSave(tempValue);
+    const selectedSound = list.find((s) => s.name === tempValue);
+    if (typeof onSave === "function") onSave(selectedSound);
   };
 
   return (

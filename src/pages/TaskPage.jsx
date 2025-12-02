@@ -4,6 +4,8 @@ import FinalBtns from "../Components/FinalBtns";
 import StyledTimePicker from "../Components/StyledTimePicker";
 import DeleteTask from "../Components/DeleteTask";
 import { useNavigate } from "react-router-dom";
+import CalendarLib from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 // import Task from "../Components/Task";
 
 const TaskPage = ({
@@ -33,6 +35,14 @@ const TaskPage = ({
     return localStorage.getItem("task-time") || "";
   });
 
+  const [dueDate, setDueDate] = useState(() => {
+    return localStorage.getItem("task-dueDate") || "";
+  });
+
+  const [tempDueDate, setTempDueDate] = useState(
+    dueDate ? new Date(dueDate) : new Date()
+  );
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
 
@@ -42,6 +52,7 @@ const TaskPage = ({
   const [tempRepeat, setTempRepeat] = useState("");
 
   const [tempTime, setTempTime] = useState("");
+  const [showCalendar, setShowCalender] = useState(false);
 
   const textAreaRef = useRef(null);
 
@@ -106,6 +117,10 @@ const TaskPage = ({
     if (action === "closeTime") {
       setTempTime("");
       setShowTime(false);
+    }
+
+    if (action === "closeCalendar") {
+      setShowCalender(false);
     }
   }
 
@@ -267,7 +282,10 @@ const TaskPage = ({
 
         <div className="flex flex-col ">
           <hr className="border-t-[1px] border-gray-500 my-1" />
-          <div className="flex flex-row justify-between items-center px-2 py-4 border-b border-gray-600 ">
+          <div
+            onClick={() => setShowCalender(true)}
+            className="flex flex-row justify-between items-center px-2 py-4 border-b border-gray-600 "
+          >
             <div className="flex flex-row items-center">
               <img
                 className="mr-4 h-10"
@@ -278,11 +296,14 @@ const TaskPage = ({
             </div>
 
             <div className="date bg-gray-200 text-gray-600  rounded-2xl py-2 px-3 ">
-              11/11/2025
+              {dueDate || "No Due Date"}
             </div>
           </div>
-          <div className="flex flex-row justify-between items-center px-2 py-4 border-b border-gray-600 ">
-            <div onClick={openTimeModal} className="flex flex-row items-center">
+          <div
+            onClick={openTimeModal}
+            className="flex flex-row justify-between items-center px-2 py-4 border-b border-gray-600 "
+          >
+            <div className="flex flex-row items-center">
               <img className="mr-4 h-10" src="/images/time.png" alt="" />
               <div>Task & Reminder</div>
             </div>
@@ -291,11 +312,11 @@ const TaskPage = ({
               {taskTime ? formatTime(taskTime) : "No Time"}
             </div>
           </div>
-          <div className="flex flex-row justify-between items-center px-2 py-4 border-b border-gray-600 ">
-            <div
-              onClick={() => setShowRepeat(true)}
-              className="flex flex-row items-center"
-            >
+          <div
+            onClick={() => setShowRepeat(true)}
+            className="flex flex-row justify-between items-center px-2 py-4 border-b border-gray-600 "
+          >
+            <div className="flex flex-row items-center">
               <img className="mr-4 h-10" src="/images/repeat.png" alt="" />
               <div>Repeat Task</div>
             </div>
@@ -331,6 +352,35 @@ const TaskPage = ({
           </div>
         </div>
       </div>
+      {showCalendar && (
+        <div
+          onClick={() => onCancel("closeCalendar")}
+          className="fixed top-0 left-0 right-0 bottom-0 bg-black/50 flex justify-center items-center"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="calendarContainer rounded-2xl "
+          >
+            <div className="my-10">
+              <CalendarLib
+                onChange={(date) => setTempDueDate(date)}
+                value={tempDueDate}
+              />
+            </div>
+            <FinalBtns
+              confirmText="DONE"
+              cancelText="CANCEL"
+              onCancel={() => onCancel("closeCalendar")}
+              onSave={() => {
+                const formatted = tempDueDate.toLocaleDateString();
+                setDueDate(formatted);
+                localStorage.setItem("task-dueDate", formatted);
+                setShowCalender(false);
+              }}
+            />
+          </div>
+        </div>
+      )}
 
       {showRepeat && (
         <div

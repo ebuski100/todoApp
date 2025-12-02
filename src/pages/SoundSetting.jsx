@@ -19,22 +19,26 @@ const SoundSetting = () => {
     localStorage.getItem("alarm") || "beep"
   );
   const [completionSound, setCompletionSound] = useState(
-    localStorage.getItem("completion") || "blared"
+    localStorage.getItem("completion") || "done"
   );
   const handleCompletionSelect = (sound) => {
-    setCompletionSound(sound);
-    localStorage.setItem("completionSound", sound);
+    setCompletionSound(sound.name);
+    localStorage.setItem("completionSoundName", sound.name);
+    localStorage.setItem("completionSoundFile", sound.file);
   };
 
   const handleAlarmSelect = (sound) => {
-    setAlarmSound(sound);
-    localStorage.setItem("alarmSound", sound);
+    setAlarmSound(sound.name);
+    localStorage.setItem("alarmSoundName", sound.name);
+    localStorage.setItem("alarmSoundFile", sound.file);
   };
 
   const handleNoteSelect = (sound) => {
-    setNotificationSound(sound);
-    localStorage.setItem("notificationSound", sound);
+    setNotificationSound(sound.name);
+    localStorage.setItem("notificationSoundName", sound.name);
+    localStorage.setItem("notificationSoundFile", sound.file);
   };
+
   const [soundType, setSoundType] = useState(
     localStorage.getItem("soundType") || "notification"
   );

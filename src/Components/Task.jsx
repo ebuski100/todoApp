@@ -14,15 +14,16 @@ function Task({
           key={task.id}
           className={`taskItem  flex flex-row  w-full justify-between items-center  m-2 bg-gray-100/50 rounded ${
             task.completed ? "completed-task" : ""
-          }`}
+          } `}
         >
           <div className="flex flex-1 p-4   flex-row">
             <div
               onClick={toggleCompletion}
               className={`relative h-6 w-6 rounded-full flex items-center justify-center cursor-pointer transition-all duration-1000
+                
     ${
       task.completed
-        ? "bg-green-500 border-green-500"
+        ? "bg-green-500 border-green-500 pop-animation glow-animation"
         : "border-gray-600 bg-white"
     } border-2
   `}
