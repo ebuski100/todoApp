@@ -139,7 +139,12 @@ function App() {
         <Route
           path="/completed"
           element={
-            <Completed activeCategory={activeCategory} taskList={taskList} />
+            <Completed
+              activeCategory={activeCategory}
+              taskList={taskList}
+              activeTask={activeTask}
+              setTaskList={setTaskList}
+            />
           }
         />
         <Route path="/d" element={<CompletedLink />} />

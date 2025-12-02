@@ -236,6 +236,24 @@ function Tasks({
   function HideInput() {
     setShowInput(false);
   }
+  function toggleTaskCompletion(task) {
+    setTaskList((prev) => {
+      const updated = { ...prev };
+      const categoryTasks = updated[task.categoryId] || [];
+
+      updated[task.categoryId] = categoryTasks.map((t) =>
+        t.id === task.id
+          ? {
+              ...t,
+              completed: !t.completed,
+              completedAt: !t.completed ? new Date().toISOString() : null,
+            }
+          : t
+      );
+
+      return updated;
+    });
+  }
 
   function openDeleteModal(taskId) {
     setTaskToDelete(taskId);
@@ -356,6 +374,7 @@ function Tasks({
                   taskList={[task]}
                   goTaskPage={() => goTaskPage(task)}
                   openDeleteModal={() => openDeleteModal(task.id)}
+                  toggleCompletion={() => toggleTaskCompletion(task)}
                 />
               ))}
             </div>
@@ -372,6 +391,7 @@ function Tasks({
                 taskList={[task]}
                 goTaskPage={() => goTaskPage(task)}
                 openDeleteModal={() => openDeleteModal(task.id)}
+                toggleCompletion={() => toggleTaskCompletion(task)}
               />
             ))}
             {completedForActiveCategory.length > 0 && (
