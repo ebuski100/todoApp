@@ -22,7 +22,9 @@ function Tasks({
 }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
-
+  const file =
+    localStorage.getItem("completionSoundFile") || "/sounds/done-note.wav";
+  const audio = new Audio(file);
   const categoryRefs = useRef({});
   const menuRef = useRef(null);
   const [open, setOpen] = useState(false);
@@ -40,8 +42,6 @@ function Tasks({
     setShowInput(false);
   }
   function playDoneNote() {
-    const file = localStorage.getItem("completionSoundFile") || "done";
-    const audio = new Audio(file);
     console.log(file);
     audio.currentTime = 0;
     audio.play().catch((err) => console.log("Audio play failed:", err));
