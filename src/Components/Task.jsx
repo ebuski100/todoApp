@@ -4,6 +4,8 @@ function Task({
   openDeleteModal,
   goTaskPage,
   toggleCompletion,
+  // dueDate,
+  // activeTask,
 }) {
   const tasks = taskList || (task ? [task] : []);
 
@@ -16,10 +18,10 @@ function Task({
             task.completed ? "completed-task" : ""
           } `}
         >
-          <div className="flex flex-1 p-4   flex-row">
+          <div className="flex flex-1 p-4  items-center   flex-row">
             <div
               onClick={toggleCompletion}
-              className={`relative h-6 w-6 rounded-full flex items-center justify-center cursor-pointer transition-all duration-1000
+              className={`relative h-6 w-6 rounded-full flex items-center justify-center cursor-pointer transition-all duration-1000 
                 
     ${
       task.completed
@@ -57,6 +59,14 @@ function Task({
               {task.text.length > 30
                 ? task.text.slice(0, 30) + "..."
                 : task.text}
+
+              <div className=" text-sm text-gray-600 flex flex-row">
+                {/* <span className="mr-1">
+                  {" "}
+                  {task.dueDate ? formatDate(task.dueDate) : ""}
+                </span> */}
+                <span>{task.dueTime ? task.dueTime : ""}</span>
+              </div>
             </div>
           </div>
           {!task.completed && (

@@ -7,6 +7,9 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DeleteTask from "../Components/DeleteTask";
 import CompletedLink from "../Components/CompletedLink";
+import FinalBtns from "../Components/FinalBtns";
+import CalendarLib from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 function Tasks({
   categories,
@@ -18,9 +21,17 @@ function Tasks({
   showInput,
   setShowInput,
   setTaskList,
+  activeTask,
   setActiveTask,
+  dueDate,
+  setDueDate,
+  tempDueDate,
+  setTempDueDate,
+  showCalendar,
+  setShowCalendar,
 }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // const [showCalendar, setShowCalendar] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
   const file =
     localStorage.getItem("completionSoundFile") || "/sounds/done-note.wav";
@@ -30,6 +41,14 @@ function Tasks({
   const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
+
+  // function formatDateOnly(date) {
+  //   const d = new Date(date);
+  //   const dd = String(d.getDate()).padStart(2, "0");
+  //   const mm = String(d.getMonth() + 1).padStart(2, "0");
+  //   const yy = String(d.getFullYear()).slice(-2);
+  //   return `${dd}/${mm}/${yy}`;
+  // }
 
   function goManageCategory() {
     navigate("/ManageCategories");
@@ -189,6 +208,8 @@ function Tasks({
                   goTaskPage={() => goTaskPage(task)}
                   openDeleteModal={() => openDeleteModal(task.id)}
                   toggleCompletion={() => toggleTaskCompletion(task)}
+                  activeTask={activeTask}
+                  // dueDate={dueDate}
                 />
               ))}
             </div>
@@ -223,11 +244,44 @@ function Tasks({
             categories={categories}
             activeCategory={activeCategory}
             addTask={addTask}
+            setShowCalendar={setShowCalendar}
+            dueDate={dueDate}
+            setDueDate={setDueDate}
           />
         </div>
       )}
 
-      {/* Delete Modal */}
+      {showCalendar && (
+        <div
+          onClick={() => setShowCalendar(false)}
+          className="fixed top-0 left-0 right-0 bottom-0 bg-black/50 flex justify-center items-center z-[1000]"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="calendarContainer rounded-2xl "
+          >
+            <div className="my-10 ">
+              <CalendarLib
+                onChange={(date) => setTempDueDate(date)}
+                value={tempDueDate}
+              />
+            </div>
+            <FinalBtns
+              confirmText="DONE"
+              cancelText="CANCEL"
+              onCancel={() => setShowCalendar(false)}
+              onSave={() => {
+                const formatted = tempDueDate;
+                setDueDate(formatted);
+                localStorage.setItem("task-dueDate", formatted);
+                console.log(formatted);
+                setShowCalendar(false);
+              }}
+            />
+          </div>
+        </div>
+      )}
+
       {showDeleteModal && (
         <DeleteTask
           closeDeleteModal={closeDeleteModal}

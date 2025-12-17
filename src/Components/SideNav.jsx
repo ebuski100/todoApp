@@ -16,6 +16,8 @@ function SideNav({
   const navigate = useNavigate();
   const savedName = localStorage.getItem("userName") || "Guest";
 
+  const [showFollow, setShowFollow] = useState(null);
+
   const [profilePic, setProfilePic] = useState(null);
 
   useEffect(() => {
@@ -27,6 +29,16 @@ function SideNav({
 
   const openEmail = () => {
     window.location.href = "mailto: felixebus042@gmail.com";
+  };
+
+  // const goToX = () => {
+  //   window.open("https://x.com/@Ebube_dev", "_blank", "noopener,noreferrer");
+  // };
+
+  const socials = {
+    x: "https://x.com/@Ebube_dev",
+    linkedin: "https://www.linkedin.com/in/Ebube Felix/",
+    substack: "https://@ebubefelix.substack.com",
   };
 
   function goDonate() {
@@ -70,7 +82,12 @@ function SideNav({
           ${
             showSideNav ? "translate-x-0 overflow-y-auto" : "-translate-x-full"
           }`}
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e) => {
+            if (showFollow) {
+              setShowFollow(false);
+            }
+            e.stopPropagation();
+          }}
         >
           <div className="nav-header-cont">
             <div className="nav-header">
@@ -101,7 +118,17 @@ function SideNav({
           </div>
           <div className="nav-cont-body">
             <div className="side-nav-sub-header">
-              <div onClick={goAccount} className="profile">
+              <div
+                onClick={() => {
+                  if (showFollow) {
+                    setShowFollow(false);
+                    return;
+                  }
+
+                  goAccount();
+                }}
+                className="profile"
+              >
                 <img
                   className={`w-[40px] h-[40px] rounded-full object-cover border border-2 mr-3 border-gray-700 ${
                     profilePic ? "bg-transparent" : "bg-gray-300 border-none"
@@ -114,22 +141,23 @@ function SideNav({
               </div>
             </div>
 
-            <div className="navItem search">
-              <img src="/images/search-icon.png" alt="" />
-              <div className="searchText">Search</div>
-            </div>
             <div className=" r78; 977 5vc4acd addtask navItem">
               <div className="addtaskImg">
                 <img src="/images/plus-white.png" alt="" className="h-4" />
               </div>
 
-              <div onClick={ShowInput} className="addTaskText">
+              <div
+                onClick={() => {
+                  if (showFollow) {
+                    setShowFollow(false);
+                    return;
+                  }
+                  ShowInput();
+                }}
+                className="addTaskText"
+              >
                 Add task
               </div>
-            </div>
-            <div className="proSect navItem">
-              <img src="/images/crown.png" alt="" />
-              <div className="proText">PRO Version</div>
             </div>
 
             <CategoryDropdown
@@ -139,28 +167,129 @@ function SideNav({
             />
             <div className="nav-hr"></div>
 
-            <div className="navItem theme">
-              <img src="/images/theme-blue.png" alt="" />
-              <div className="themeText">Theme</div>
-            </div>
-            <div onClick={goDonate} className="donate navItem">
+            <div
+              onClick={() => {
+                if (showFollow) {
+                  setShowFollow(false);
+                  return;
+                }
+                goDonate();
+              }}
+              className="donate navItem"
+            >
               <img src="/images/blue-donate-icon.png" alt="" />
               <div className="themeText">Donate</div>
             </div>
             <div className="feedback navItem">
               <img src="/images/feedback-blue.png" alt="" />
-              <div onClick={openEmail} className="feedbackText">
+              <div
+                onClick={() => {
+                  if (showFollow) {
+                    setShowFollow(false);
+                    return;
+                  }
+                  openEmail();
+                }}
+                className="feedbackText"
+              >
                 Feedback
               </div>
             </div>
 
-            <div onClick={handleShare} className="share navItem">
+            <div
+              onClick={() => {
+                if (showFollow) {
+                  setShowFollow(false);
+                  return;
+                }
+
+                handleShare();
+              }}
+              className="share navItem"
+            >
               <img src="/images/share-blue.png" alt="" />
               <div className="settingsText">Share App</div>
+            </div>
+            <div
+              onClick={() => setShowFollow((prev) => !prev)}
+              className="  relative  follow navItem"
+            >
+              <img src="/images/follow-us.png" alt="" />
+              <div className="followText">follow Us</div>
+              {/* {showFollow && (
+                <div className="p-3 bg-gray-200/50 rounded-2xl  absolute -top-50 right-0">
+                  <div className="followItem">
+                    <img src="/images/linkedin.png" alt="" />
+                    <p>linkedIn</p>
+                  </div>
+                  <div onClick={goToX} className="followItem">
+                    <img src="/images/twitter.png" alt="" />
+                    <p>x.com</p>
+                  </div>
+                  <div className="followItem">
+                    <img src="/images/substack.png" alt="" />
+                    <p>substack</p>
+                  </div>
+                </div>
+              )} */}
+
+              {showFollow && (
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="p-3 bg-gray-200/50 rounded-2xl absolute -top-50 right-0"
+                >
+                  <a
+                    href={socials.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setShowFollow(false)}
+                    className="followItem"
+                  >
+                    <img src="/images/linkedin.png" alt="" />
+                    <p>LinkedIn</p>
+                  </a>
+
+                  <a
+                    href={socials.x}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setShowFollow(false)}
+                    className="followItem"
+                  >
+                    <img src="/images/twitter.png" alt="" />
+                    <p>X (Twitter)</p>
+                  </a>
+
+                  <a
+                    href={socials.substack}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setShowFollow(false)}
+                    className="followItem"
+                  >
+                    <img src="/images/substack.png" alt="" />
+                    <p>Substack</p>
+                  </a>
+                </div>
+              )}
+            </div>
+
+            <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-3 py-4">
+              <img
+                className="h-8 mr-4"
+                src="/images/privacyPolicy.png"
+                alt=""
+              />
+              <div className="text ">Privacy Policy</div>
+            </div>
+            <div className=" px-3 active:bg-gray-100 rounded-2xl flex flex-row items-center  py-4">
+              <img className="h-8 mr-4" src="/images/version.png" alt="" />
+              <div className="text ">Version:1.02.95.1028</div>
             </div>
           </div>
         </div>
       </div>
+
       {showInput && (
         <div>
           <div onClick={HideInput} className="inputOverlay "></div>

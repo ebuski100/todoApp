@@ -262,6 +262,16 @@ body {
   transform: scale(1.05) translateX(2px) translateY(2px);
 }
 
+.followItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem 0.5rem;
+}
+.followItem img {
+  height: 20px;
+}
+
 .profile-name {
   font-weight: bold;
   margin-right: 0.5rem;
@@ -301,6 +311,8 @@ body {
   align-items: center;
   padding: 1rem;
   cursor: pointer;
+  /* position: relative; */
+  /* border: 1px solid blue; */
 }
 
 .proSect {
@@ -320,7 +332,8 @@ body {
 .donate img,
 .feedback img,
 .settings img,
-.share img {
+.share img,
+.follow img {
   margin-right: 1rem;
   height: 1.5rem;
 }
@@ -786,7 +799,7 @@ body {
   border-top-right-radius: 1rem;
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 900;
   top: 200px;
   background: #f0f0f0;
   /* border: 1px solid blue; */

@@ -11,14 +11,10 @@ import Settings from "./pages/Settings";
 import Faq from "./pages/Faq";
 import SoundSetting from "./pages/SoundSetting";
 
-// import TaskTemplates from "./pages/TaskTemplates";
 import Donate from "./pages/Donate";
 
 import User from "./pages/User";
 import TaskPage from "./pages/TaskPage";
-
-// import LoadPage from "./pages/LoadPage";
-// import Theme from "./pages/Theme";
 
 function App() {
   const DEFAULT_CATEGORIES = [
@@ -65,15 +61,13 @@ function App() {
   });
   const [showInput, setShowInput] = useState(false);
   const [activeTask, setActiveTask] = useState(null);
+  const [showCalendar, setShowCalendar] = useState(null);
 
-  // const [completedTasks, setCompletedTasks] = useState(() => {
-  //   const saved = localStorage.getItem("completedTasks");
-  //   return saved ? JSON.parse(saved) : [];
-  // });
+  const [dueDate, setDueDate] = useState();
 
-  // useEffect(() => {
-  //   localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
-  // }, [completedTasks]);
+  const [tempDueDate, setTempDueDate] = useState(
+    dueDate ? new Date(dueDate) : new Date()
+  );
 
   useEffect(() => {
     const storable = categories.filter(
@@ -109,7 +103,8 @@ function App() {
       };
     });
   }
-
+  const now = new Date();
+  const oneHourLater = new Date(now.getTime() + 60 * 60 * 1000);
   const addTask = (taskText) => {
     if (!taskText.trim()) return;
 
@@ -119,6 +114,12 @@ function App() {
       completed: false,
       categoryId: activeCategory,
       createdAt: Date.now(),
+
+      dueDate: dueDate,
+
+      dueTime: oneHourLater.toTimeString().slice(0, 5),
+      repeat: "None",
+      notes: "",
     };
 
     const updatedTaskList = {
@@ -161,10 +162,16 @@ function App() {
               // completedTasks={completedTasks}
               // setCompletedTasks={setCompletedTasks}
               showInput={showInput}
+              showCalendar={showCalendar}
+              setShowCalendar={setShowCalendar}
               setShowInput={setShowInput}
               setTaskList={setTaskList}
               activeTask={activeTask}
               setActiveTask={setActiveTask}
+              dueDate={dueDate}
+              setDueDate={setDueDate}
+              tempDueDate={tempDueDate}
+              setTempDueDate={setTempDueDate}
             />
           }
         />
@@ -185,7 +192,10 @@ function App() {
               activeCategory={activeCategory}
               addTask={addTask}
               showInput={showInput}
+              setTempDueDate={setTempDueDate}
               setShowInput={setShowInput}
+              tempDueDate={tempDueDate}
+              setDueDate={setDueDate}
               taskList={taskList}
               setTaskList={setTaskList}
             />
@@ -202,12 +212,16 @@ function App() {
               setActiveCategory={setActiveCategory}
               taskList={taskList}
               showInput={showInput}
-              // completedTasks={completedTasks}
-              // setCompletedTasks={setCompletedTasks}
+              showCalendar={showCalendar}
+              setShowCalendar={setShowCalendar}
               setShowInput={setShowInput}
               setTaskList={setTaskList}
               activeTask={activeTask}
               setActiveTask={setActiveTask}
+              dueDate={dueDate}
+              setDueDate={setDueDate}
+              tempDueDate={tempDueDate}
+              setTempDueDate={setTempDueDate}
             />
           }
         />
@@ -223,6 +237,10 @@ function App() {
               activeTask={activeTask}
               setActiveTask={setActiveTask}
               updateTaskInList={updateTaskInList}
+              dueDate={dueDate}
+              setDueDate={setDueDate}
+              tempDueDate={tempDueDate}
+              setTempDueDate={setTempDueDate}
             />
           }
         />

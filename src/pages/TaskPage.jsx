@@ -17,6 +17,10 @@ const TaskPage = ({
   activeTask,
   setActiveTask,
   updateTaskInList,
+  dueDate,
+  setDueDate,
+  tempDueDate,
+  setTempDueDate,
 }) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -35,13 +39,14 @@ const TaskPage = ({
     return localStorage.getItem("task-time") || "";
   });
 
-  const [dueDate, setDueDate] = useState(() => {
-    return localStorage.getItem("task-dueDate") || "";
-  });
+  // const [dueDate, setDueDate] = useState(() => {
+  //   return localStorage.getItem("task-dueDate") || "";
+  // });
 
-  const [tempDueDate, setTempDueDate] = useState(
-    dueDate ? new Date(dueDate) : new Date()
-  );
+  // const [tempDueDate, setTempDueDate] = useState(() => {
+  //   if (!dueDate) return new Date();
+  //   return new Date(dueDate);
+  // });
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
@@ -62,7 +67,6 @@ const TaskPage = ({
 
     setTimeout(() => {
       setToast(null);
-      //   navigate("/Tasks");
     }, 1000);
   };
 
@@ -296,7 +300,7 @@ const TaskPage = ({
             </div>
 
             <div className="date bg-gray-200 text-gray-600  rounded-2xl py-2 px-3 ">
-              {dueDate || "No Due Date"}
+              {dueDate ? new Date(dueDate).toLocaleDateString() : "No Due Date"}
             </div>
           </div>
           <div
@@ -373,8 +377,9 @@ const TaskPage = ({
               onCancel={() => onCancel("closeCalendar")}
               onSave={() => {
                 const formatted = tempDueDate.toLocaleDateString();
+                const isoDate = tempDueDate.toISOString().split("T")[0];
                 setDueDate(formatted);
-                localStorage.setItem("task-dueDate", formatted);
+                localStorage.setItem("task-dueDate", isoDate);
                 setShowCalender(false);
               }}
             />

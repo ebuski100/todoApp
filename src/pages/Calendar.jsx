@@ -15,9 +15,21 @@ function Calendar({
   setShowInput,
   taskList,
   setTaskList,
+
+  setDueDate,
+  tempDueDate,
+  setTempDueDate,
 }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const [taskToDelete, setTaskToDelete] = useState(null);
+  function formatDateOnly(date) {
+    const d = new Date(date);
+    const dd = String(d.getDate()).padStart(2, "0");
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const yy = String(d.getFullYear()).slice(-2);
+    return `${dd}/${mm}/${yy}`;
+  }
   function ShowInput() {
     setShowInput(true);
     console.log("input shown");
@@ -61,7 +73,19 @@ function Calendar({
         <img src="/images/three-dots-black.png" alt="" className="h-6" />
       </div>
       <div className="calendarContainer">
-        <CalendarLib />
+        {/* <CalendarLib
+          onChange={(date) => setTempDueDate(date)}
+          value={tempDueDate}
+        /> */}
+
+        <CalendarLib
+          onChange={(date) => {
+            setTempDueDate(date);
+            setDueDate(date); // <-- keep TaskInput in sync
+            localStorage.setItem("task-dueDate", formatDateOnly(tempDueDate));
+          }}
+          value={tempDueDate}
+        />
       </div>
       <div className="calTasksCont">
         {taskList.length === 0 ? (
@@ -88,6 +112,10 @@ function Calendar({
             categories={categories}
             activeCategory={activeCategory}
             addTask={addTask}
+            setDueDate={setDueDate}
+            dueDate={tempDueDate}
+            tempDueDate={tempDueDate}
+            setShowInput={setShowInput}
           />
         </div>
       )}

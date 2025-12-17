@@ -69,10 +69,10 @@ function SideNavLogo() {
           </div>
         </div>
 
-        <div className="navItem search">
+        {/* <div className="navItem search">
           <img src="/images/search-icon.png" alt="" />
           <div className="searchText">Search</div>
-        </div>
+        </div> */}
         <div className=" r78; 977 5vc4acd addtask navItem">
           <div className="addtaskImg">
             <img src="/images/plus-white.png" alt="" className="h-4" />
@@ -80,10 +80,10 @@ function SideNavLogo() {
 
           <div className="addTaskText">Add task</div>
         </div>
-        <div className="proSect navItem">
+        {/* <div className="proSect navItem">
           <img src="/images/crown.png" alt="" />
           <div className="proText">PRO Version</div>
-        </div>
+        </div> */}
         <div className="category navItem">
           <div className="category1st">
             <div className="categoryImg">
@@ -98,10 +98,10 @@ function SideNavLogo() {
         </div>
         <div className="nav-hr"></div>
 
-        <div className="navItem theme">
+        {/* <div className="navItem theme">
           <img src="/images/theme-blue.png" alt="" />
           <div className="themeText">Theme</div>
-        </div>
+        </div> */}
         <div
           onClick={() => {
             goDonate();
