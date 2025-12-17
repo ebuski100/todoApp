@@ -37,8 +37,9 @@ function SideNav({
 
   const socials = {
     x: "https://x.com/@Ebube_dev",
-    linkedin: "https://www.linkedin.com/in/Ebube Felix/",
-    substack: "https://@ebubefelix.substack.com",
+    linkedin:
+      "https://www.linkedin.com/in/ebube-felix-🧑🏽%E2%80%8D💻-820a3724a/",
+    substack: "https://substack.com/@ebubefelix?utm_source=about-page",
   };
 
   function goDonate() {
