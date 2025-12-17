@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const TaskInput = ({
-  categories,
+  categories = [],
   activeCategory,
   addTask,
   setShowCalendar,

@@ -31,10 +31,6 @@ function SideNav({
     window.location.href = "mailto: felixebus042@gmail.com";
   };
 
-  // const goToX = () => {
-  //   window.open("https://x.com/@Ebube_dev", "_blank", "noopener,noreferrer");
-  // };
-
   const socials = {
     x: "https://x.com/@Ebube_dev",
     linkedin:
@@ -142,23 +138,21 @@ function SideNav({
               </div>
             </div>
 
-            <div className=" r78; 977 5vc4acd addtask navItem">
+            <div
+              onClick={() => {
+                if (showFollow) {
+                  setShowFollow(false);
+                  return;
+                }
+                ShowInput();
+              }}
+              className=" r78; 977 5vc4acd addtask navItem"
+            >
               <div className="addtaskImg">
                 <img src="/images/plus-white.png" alt="" className="h-4" />
               </div>
 
-              <div
-                onClick={() => {
-                  if (showFollow) {
-                    setShowFollow(false);
-                    return;
-                  }
-                  ShowInput();
-                }}
-                className="addTaskText"
-              >
-                Add task
-              </div>
+              <div className="addTaskText">Add task</div>
             </div>
 
             <CategoryDropdown

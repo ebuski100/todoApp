@@ -10,8 +10,15 @@ function Settings() {
   const [showTformatModal, setTformatModal] = useState(false);
 
   const [showDformatModal, setDformatModal] = useState(false);
+  const [showFollow, setShowFollow] = useState(null);
 
   const [showReminderModal, setShowReminderModal] = useState(false);
+  const socials = {
+    x: "https://x.com/@Ebube_dev",
+    linkedin:
+      "https://www.linkedin.com/in/ebube-felix-🧑🏽%E2%80%8D💻-820a3724a/",
+    substack: "https://substack.com/@ebubefelix?utm_source=about-page",
+  };
 
   // const openTimeModal = () => {
   //   setTempTimeFormat(selectedTimeFormat);
@@ -45,9 +52,9 @@ function Settings() {
   }, [showLangModal]);
   const { t, i18n } = useTranslation();
 
-  const goFaq = () => {
-    navigate("/Faq");
-  };
+  // const goFaq = () => {
+  //   navigate("/Faq");
+  // };
 
   const goNotification = () => {
     navigate("/SoundSetting");
@@ -80,7 +87,14 @@ function Settings() {
   );
   return (
     <>
-      <div className="settingsCont pb-25">
+      <div
+        onClick={() => {
+          if (showFollow) {
+            setShowFollow(false);
+          }
+        }}
+        className="settingsCont pb-25"
+      >
         <div className=" z-40 bg-white  sticky top-0 left-0 flex p-4 font-bold ">
           Settings
         </div>
@@ -88,33 +102,54 @@ function Settings() {
           <div className="p-3 text-gray-700">{t("Customize")}</div>
 
           <div
-            onClick={goAccount}
+            onClick={() => {
+              if (showFollow) {
+                setShowFollow(false);
+                return;
+              }
+              goAccount();
+            }}
             className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-5"
           >
             <img className="h-8 mr-4" src="/images/user-blue.png" alt="" />
             <div className="text ">{t("Account")}</div>
           </div>
 
-          <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4">
+          {/* <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4">
             <img className="h-8 mr-4" src="/images/theme-blue.png" alt="" />
             <div className="text ">{t("Theme")}</div>
-          </div>
+          </div> */}
           <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4">
             <img className="h-8 mr-4" src="/images/blue bell.png" alt="" />
-            <div onClick={goNotification} className="text ">
+            <div
+              onClick={() => {
+                if (showFollow) {
+                  setShowFollow(false);
+                  return;
+                }
+                goNotification();
+              }}
+              className="text "
+            >
               {t("Notification & Reminder")}
             </div>
           </div>
-          <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4">
+          {/* <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4">
             <img className="h-8 mr-4" src="/images/crown.png" alt="" />
             <div className="text">Upgrade</div>
-          </div>
+          </div> */}
         </div>
         <div className="p-2 border-b border-gray-300 settingSect ">
           <div className="p-3 text-gray-700">Date & Time</div>
 
           <div
-            onClick={() => setTformatModal(true)}
+            onClick={() => {
+              if (showFollow) {
+                setShowFollow(false);
+                return;
+              }
+              setTformatModal(true);
+            }}
             className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-5"
           >
             <img className="h-8 mr-4" src="/images/timeformat.png" alt="" />
@@ -125,7 +160,13 @@ function Settings() {
           </div>
 
           <div
-            onClick={() => setDformatModal(true)}
+            onClick={() => {
+              if (showFollow) {
+                setShowFollow(false);
+                return;
+              }
+              setDformatModal(true);
+            }}
             className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4"
           >
             <img className="h-8 mr-4" src="/images/dateformat.png" alt="" />
@@ -135,7 +176,13 @@ function Settings() {
             </div>
           </div>
           <div
-            onClick={() => setShowReminderModal(true)}
+            onClick={() => {
+              if (showFollow) {
+                setShowFollow(false);
+                return;
+              }
+              setShowReminderModal(true);
+            }}
             className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4"
           >
             <img className="h-8 mr-4" src="/images/reminder.png" alt="" />
@@ -152,19 +199,72 @@ function Settings() {
           <div className="p-3 text-gray-700">About</div>
 
           <div
-            onClick={() => setShowLangModal(true)}
+            onClick={() => {
+              if (showFollow) {
+                setShowFollow(false);
+                return;
+              }
+              setShowLangModal(true);
+            }}
             className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-5"
           >
             <img className="h-8 mr-4" src="/images/language.png" alt="" />
             <div className="text ">Language</div>
           </div>
 
-          <div
+          {/* <div
             onClick={goFaq}
             className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4"
           >
             <img className="h-8 mr-4" src="/images/faq.png" alt="" />
             <div className="text ">FAQ</div>
+          </div> */}
+          <div
+            onClick={() => setShowFollow((prev) => !prev)}
+            className="  relative follow navItem"
+          >
+            <img src="/images/follow-us.png" alt="" />
+            <div className="followText">follow Us</div>
+
+            {showFollow && (
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className="p-3 bg-gray-200/50 rounded-2xl absolute -top-50 right-0"
+              >
+                <a
+                  href={socials.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setShowFollow(false)}
+                  className="followItem"
+                >
+                  <img src="/images/linkedin.png" alt="" />
+                  <p>LinkedIn</p>
+                </a>
+
+                <a
+                  href={socials.x}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setShowFollow(false)}
+                  className="followItem"
+                >
+                  <img src="/images/twitter.png" alt="" />
+                  <p>X (Twitter)</p>
+                </a>
+
+                <a
+                  href={socials.substack}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setShowFollow(false)}
+                  className="followItem"
+                >
+                  <img src="/images/substack.png" alt="" />
+                  <p>Substack</p>
+                </a>
+              </div>
+            )}
           </div>
 
           <div className="active:bg-gray-100 rounded-2xl flex flex-row items-center px-6 py-4">
